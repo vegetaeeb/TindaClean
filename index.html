@@ -1,255 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sungla - Home</title>
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/responsive.css">
-<link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<style>
-/* Carrito flotante */
-.cart-panel { position: fixed; top: 0; right: -400px; width: 300px; height: 100%; background: #fff; padding: 20px; box-shadow: -4px 0 10px rgba(0,0,0,0.2); transition: 0.3s; z-index: 10000; }
-.cart-panel.open { right: 0; }
-#open-cart { position: fixed; top: 20px; right: 20px; cursor: pointer; z-index: 10001; background: white; padding: 8px 12px; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.3); }
-.remove-item { cursor: pointer; color: black; font-weight: bold; margin-left: 10px; }
-.remove-item:hover { color: red; }
-</style>
-</head>
-<body class="main-layout position_head">
+	<meta charset="utf-8">
+	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
+	
+	<title>Initio - Free, multipurpose html5 template by GetTemplate</title>
 
-<!-- Header -->
-<header>
-    <div class="header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
-                    <div class="full">
-                        <div class="center-desk">
-                            <div class="logo">
-                                <a href="index.html"><img src="images/logo.png" alt="#" /></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
-                    <nav class="navigation navbar navbar-expand-md navbar-dark">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarsExample04">
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item active"><a class="nav-link" href="index.html">Inicio</a></li>
-                                <li class="nav-item"><a class="nav-link" href="glasses.html">Productos</a></li>
-                                <li class="nav-item"><a class="nav-link" href="contact.html">Contactanos</a></li>
-                                <!-- Dropdown Cuenta -->
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarLogin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Cuenta
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarLogin">
-                                        <a class="dropdown-item" href="#" id="show-login">Ingresar</a>
-                                        <a class="dropdown-item" href="#" id="show-register">Registrar</a>
-                                        <a class="dropdown-item" href="#" id="btnLogout" style="display:none;">Cerrar sesión</a>
-                                    </div>
-                                </li>
-                                <!-- Carrito -->
-                                <li class="nav-item sea_icon">
-                                    <a class="nav-link" href="#" id="open-cart">
-                                        <i class="fa fa-shopping-cart"></i> <span id="cart-count">0</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
+	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
+	
+	<!-- Bootstrap -->
+	<!-- Bootstrap -->
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.no-icons.min.css" rel="stylesheet">
+<!-- Icons -->
+<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<!-- Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alice|Open+Sans:400,300,700">
+<!-- Custom styles -->
+<link rel="stylesheet" href="assets/css/styles.css">
+
+
+	<!--[if lt IE 9]> <script src="assets/js/html5shiv.js"></script> <![endif]-->
+</head>
+<body class="home">
+
+<header id="header">
+	<div id="head" class="parallax" parallax-speed="2">
+		<h1 id="logo" class="text-center">
+			<img class="img-circle" src="assets/images/guy.jpg" alt="">
+			<span class="title">Erick Elizondo</span>
+			<span class="tagline">Tecnico Electronico<br>
+				<a href="">eelizondo@vtr.net</a></span>
+		</h1>
+	</div>
+
+	<nav class="navbar navbar-default navbar-sticky">
+		<div class="container-fluid">
+			
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+			</div>
+			
+			<div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
+				
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="index.html">Inicio</a></li>
+					<li><a href="about.html">Experiencia</a></li>
+					<li><a href="blog.html">Blog</a></li>
+					<li><a href="assets/images/Curriculum.pdf" download>Descargar CV</a></li>
+				</ul>
+			
+			</div><!--/.nav-collapse -->			
+		</div>	
+	</nav>
 </header>
 
-<!-- Formulario Login/Registro -->
-<div id="auth-forms" style="text-align:center; margin:30px;">
-    <div id="login-form" style="display:none;">
-        <h3>Iniciar Sesión</h3>
-        <input type="email" id="emailLogin" placeholder="Correo">
-        <input type="password" id="passwordLogin" placeholder="Contraseña">
-        <button id="btnLogin">Ingresar</button>
-    </div>
-    <div id="register-form" style="display:none;">
-        <h3>Registrarse</h3>
-        <input type="email" id="emailRegistro" placeholder="Correo">
-        <input type="password" id="passwordRegistro" placeholder="Contraseña">
-        <button id="btnRegistro">Registrar</button>
-    </div>
-    <p id="user-info" style="display:none;">Bienvenido, <span id="user-email"></span></p>
+<main id="main">
+
+	<div class="container">
+		
+		<div class="row section topspace">
+			<div class="col-md-12">
+				<p class="lead text-center text-muted">Técnico Electrónico con amplia experiencia en soporte técnico y mesa de ayuda. Me destaco por mi adaptabilidad en roles como configuraciones, reparaciones, mantención, monitoreo, actualizaciones y diagnósticos. Comprometido con la excelencia y la eficiente resolución de problemas.  </p>
+			</div>
+		</div> <!-- / section -->
+		
+		<div class="row section featured topspace">
+			<h2 class="section-title"><span>Formacion Academica</span></h2>
+			<div class="row">
+				<div class="col-sm-6 col-md-3">
+					<h3 class="text-center">Instituto Superior de Electronica Gamma</h3>
+					<p><div style="text-align:center;">
+  <div>2001/2003</div>
+  <div>Egresado de la carrera</div>
+  <div>"Técnico superior en Electrónica</div>
+  <div>con mención en microprocesadores"</div>
 </div>
-
-<!-- Aquí irían tus secciones hero, productos, carrito, footer, etc. -->
-
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
-
-<!-- Carrito JS -->
-<script>
-$(document).ready(function(){
-    let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
-
-    function updateCart(){
-        $("#cart-count").text(cart.length);
-        $("#cart-items").empty();
-        let total = 0;
-        cart.forEach((item,index)=>{
-            total += item.price;
-            $("#cart-items").append(
-                `<li>${item.name} - $${item.price} 
-                    <span class="remove-item" data-index="${index}">×</span>
-                </li>`
-            );
-        });
-        $("#cart-total").text(total);
-        localStorage.setItem('cartItems', JSON.stringify(cart));
-    }
-
-    $(".add-to-cart").click(function(){
-        const name = $(this).data("name");
-        const price = Number($(this).data("price"));
-        cart.push({name, price});
-        updateCart();
-    });
-
-    $("#cart-items").on("click",".remove-item",function(){
-        const index = $(this).data("index");
-        cart.splice(index,1);
-        updateCart();
-    });
-
-    $("#open-cart").click(()=> $("#cart-panel").addClass("open"));
-    $("#close-btn").click(()=> $("#cart-panel").removeClass("open"));
-    $("#checkout-btn").click(()=>{
-        localStorage.setItem('cartItems', JSON.stringify(cart));
-        localStorage.setItem('cartTotal', cart.reduce((sum,item)=>sum+item.price,0));
-        window.location.href="checkout.html";
-    });
-
-    updateCart();
-});
-</script>
-
-<!-- Firebase -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-
-// Config Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyBdOgA-h-amWUFd5Yi5G3Zbz6gnGx1dRA",
-  authDomain: "pagina-web-estatica-44d09.firebaseapp.com",
-  projectId: "pagina-web-estatica-44d09",
-  storageBucket: "pagina-web-estatica-44d09.firebasestorage.app",
-  messagingSenderId: "414249141743",
-  appId: "1:414249141743:web:7139e7122fc7dd47d1a21a",
-  measurementId: "G-C9399TY7LD"
-};
-
-// Inicializar Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
-
-// Mostrar formularios
-$("#show-login").click(()=> { $("#login-form").show(); $("#register-form").hide(); });
-$("#show-register").click(()=> { $("#register-form").show(); $("#login-form").hide(); });
-
-// Registrar
-document.getElementById('btnRegistro').addEventListener('click', ()=>{
-    const email = document.getElementById('emailRegistro').value;
-    const password = document.getElementById('passwordRegistro').value;
-    createUserWithEmailAndPassword(auth,email,password)
-    .then(user=>alert('Usuario registrado: '+user.user.email))
-    .catch(err=>alert(err.message));
-});
-
-// Login
-document.getElementById('btnLogin').addEventListener('click', ()=>{
-    const email = document.getElementById('emailLogin').value;
-    const password = document.getElementById('passwordLogin').value;
-    signInWithEmailAndPassword(auth,email,password)
-    .then(user=>{
-        alert('Bienvenido: '+user.user.email);
-        $("#user-email").text(user.user.email);
-        $("#user-info").show();
-        $("#btnLogout").show();
-        $("#login-form, #register-form").hide();
-    })
-    .catch(err=>alert(err.message));
-});
-
-// Logout
-document.getElementById('btnLogout').addEventListener('click', ()=>{
-    signOut(auth).then(()=>{
-        alert('Sesión cerrada');
-        $("#user-info").hide();
-        $("#btnLogout").hide();
-    });
-});
-
-
-  // Mantener sesión activa
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        // Usuario conectado
-        $("#user-email").text(user.email);
-        $("#user-info").show();
-        $("#btnLogout").show();
-        $("#login-form, #register-form").hide();
-    } else {
-        // Usuario desconectado
-        $("#user-info").hide();
-        $("#btnLogout").hide();
-    }
-});
-</script>
-
-<!-- Panel del carrito -->
-<div id="cart-panel" class="cart-panel">
-    <h3>Carrito de Compras</h3>
-    <ul id="cart-items"></ul>
-    <p><strong>Total:</strong> $<span id="cart-total">0</span></p>
-    <button id="checkout-btn" class="btn btn-success">Finalizar Pedido</button>
-    <button id="close-btn" class="btn btn-secondary">Cerrar</button>
+</p>
+<br>
+					<p class="text-center"><a href="assets/images/Certificado1.jpg" class="btn btn-action">Certificado</a></p>
+				</div>
+				<div class="col-sm-6 col-md-3">
+					<h3 class="text-center">Sence en conjunto con Rigel capacitacion</h3>
+					<p><div style="text-align:center;">
+						
+  <div>2025/2025</div>
+  <div>Curso Sence aprobado</div>
+  <div>"Herramientas de computacion para la empresa"</div>
+						<br>
+</div></p>
+					<p class="text-center"><a href="assets/images/Certificado2.jpg" class="btn btn-action">Certificado</a></p>
+				</div>
+				<div class="col-sm-6 col-md-3">
+					<h3 class="text-center">Sence en Conjunto con Fundacion Carlos slim</h3>
+					<p><div style="text-align:center;">
+  <div>2020/2020</div>
+  <div>Curso Sence aprobado</div>
+  <div>"Curador de datos"</div>
+  <br>
+  <br>					
 </div>
+</p>
+					
+					<p class="text-center"><a href="assets/images/Certificado3.jpg" class="btn btn-action">Certificado</a></p>
+				</div>
+				<div class="col-sm-6 col-md-3">
+					<h3 class="text-center">Servicio de Gestion en Capacitacion Ltda</h3>
+					<p><div style="text-align:center;">
+  <div>2025/2025</div>
+  <div>Curso con certificacion OTEC aprobado</div>
+  <div>"Operador de CCTV </div>
+ <div> y alarmas de seguridad privada" </div>					
+</div>
+</p>
+					<br>
+					<p class="text-center"><a href="assets/images/Certificado4.jpg" class="btn btn-action">Certificado</a></p>
+				</div>
+			</div>
+		</div> <!-- / section -->
+	
+		<div class="row section recentworks topspace">
+			
+			<h2 class="section-title"><span>Trabajos recientes</span></h2>
+			
+			<div class="thumbnails recentworks row">
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+					<a class="thumbnail" href="about.html">
+						<span class="img">
+							<img src="assets/images/Teleperformance.jpg" alt="">
+							<span class="cover"><span class="more">Detalles &rarr;</span></span>
+						</span>
+						<span class="title">Teleperformance</span>
+						
+					</a>
+					<span class="details"><a href="https://www.tp.com/es-cl/ubicaciones/chile/">Página oficial</span>
+	                <h4></h4>
+					<p></p>
+				</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+					<a class="thumbnail" href="about.html#dts">
+						<span class="img">
+							<img src="assets/images/dts.jpg" alt="">
+							<span class="cover"><span class="more">Detalles &rarr;</span></span>
+						</span>
+						<span class="title">DTS</span>
+					</a>
+					<span class="details"><a href="https://dts.lat">Página oficial</span>
+					<h4></h4>
+					<p></p>
+				</div>
+				
+			
 
-<!-- Footer -->
-<footer class="mt-5">
-    <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <ul class="location_icon">
-                        <li><a href="#"><i class="fa fa-map-marker"></i></a><br> Location</li>
-                        <li><a href="#"><i class="fa fa-phone"></i></a><br> +01 1234567890</li>
-                        <li><a href="#"><i class="fa fa-envelope"></i></a><br> demo@gmail.com</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="copyright">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p>© 2019 All Rights Reserved. Design by <a href="https://html.design/">Free Html Templates</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+		</div> <!-- /section -->
+
+		
+
+	
+		</div> <!-- /section -->
+
+	</div>	<!-- /container -->
+
+</main>
+
+<footer id="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3 widget">
+				
+				</div>
+			</div>
+
+		</div> <!-- /row of widgets -->
+	</div>
 </footer>
 
+<footer id="underfooter">
+	<div class="container">
+		<div class="row">
+			
+			<div class="col-md-6 widget">
+				<div class="widget-body">
+					<p>Montreal 5449, 8930151 San Miguel, Región Metropolitana </p>
+				</div>
+			</div>
+
+			<div class="col-md-6 widget">
+				<div class="widget-body">
+					<p class="text-right">
+						Copyright &copy; 2025, Erick Elizondo<br> 
+						Design: <a "Erick Elizondo" rel="designer">Erick Elizondo</a> </p>
+				</div>
+			</div>
+
+		</div> <!-- /row of widgets -->
+	</div>
+</footer>
+
+
+
+<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="assets/js/template.js"></script>
 </body>
 </html>
