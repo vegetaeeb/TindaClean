@@ -12,36 +12,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style>
 /* Carrito flotante */
-.cart-panel {
-    position: fixed;
-    top: 0;
-    right: -400px;
-    width: 300px;
-    height: 100%;
-    background: #fff;
-    padding: 20px;
-    box-shadow: -4px 0 10px rgba(0,0,0,0.2);
-    transition: 0.3s;
-    z-index: 10000;
-}
+.cart-panel { position: fixed; top: 0; right: -400px; width: 300px; height: 100%; background: #fff; padding: 20px; box-shadow: -4px 0 10px rgba(0,0,0,0.2); transition: 0.3s; z-index: 10000; }
 .cart-panel.open { right: 0; }
-#open-cart {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    cursor: pointer;
-    z-index: 10001;
-    background: white;
-    padding: 8px 12px;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.3);
-}
-.remove-item {
-    cursor: pointer;
-    color: black;
-    font-weight: bold;
-    margin-left: 10px;
-}
+#open-cart { position: fixed; top: 20px; right: 20px; cursor: pointer; z-index: 10001; background: white; padding: 8px 12px; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.3); }
+.remove-item { cursor: pointer; color: black; font-weight: bold; margin-left: 10px; }
 .remove-item:hover { color: red; }
 </style>
 </head>
@@ -66,147 +40,63 @@
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                    <div class="collapse navbar-collapse" id="navbarsExample04">
-    <ul class="navbar-nav mr-auto">
-    <li class="nav-item active"><a class="nav-link" href="index.html">Inicio</a></li>
-        <li class="nav-item"><a class="nav-link" href="glasses.html">Productos</a></li>
-        <li class="nav-item"><a class="nav-link" href="contact.html">Contactanos</a></li>
-
-                <!-- Dropdown Login -->
-       <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarLogin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Cuenta
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarLogin">
-                <a class="dropdown-item" href="login.html">Ingresar</a>
-                <a class="dropdown-item" href="register.html">Registrar</a>
+                        <div class="collapse navbar-collapse" id="navbarsExample04">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active"><a class="nav-link" href="index.html">Inicio</a></li>
+                                <li class="nav-item"><a class="nav-link" href="glasses.html">Productos</a></li>
+                                <li class="nav-item"><a class="nav-link" href="contact.html">Contactanos</a></li>
+                                <!-- Dropdown Cuenta -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarLogin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Cuenta
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarLogin">
+                                        <a class="dropdown-item" href="#" id="show-login">Ingresar</a>
+                                        <a class="dropdown-item" href="#" id="show-register">Registrar</a>
+                                        <a class="dropdown-item" href="#" id="btnLogout" style="display:none;">Cerrar sesión</a>
+                                    </div>
+                                </li>
+                                <!-- Carrito -->
+                                <li class="nav-item sea_icon">
+                                    <a class="nav-link" href="#" id="open-cart">
+                                        <i class="fa fa-shopping-cart"></i> <span id="cart-count">0</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
             </div>
-        </li>
-
-        <!-- Carrito -->
-        <li class="nav-item sea_icon">
-            <a class="nav-link" href="#" id="open-cart">
-                <i class="fa fa-shopping-cart"></i> <span id="cart-count">0</span>
-            </a>
-        </li>
-    </ul>
-</div>
+        </div>
+    </div>
 </header>
 
-<!-- Productos destacados -->
-<section class="hero-section" style="background: url('images/banner-bg.jpg') center/cover no-repeat; padding: 100px 0; text-align: center; color: #fff;">
-    <h1 class="display-4 font-weight-bold">Protege tus ojos con estilo</h1>
-    <p class="lead">Lentes modernos, cómodos y con protección UV</p>
-   
-</section>
-
-<!-- Beneficios -->
-<section class="features py-5 text-center">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <i class="fa fa-truck fa-3x mb-3"></i>
-                <h4>Entrega a Domicilio</h4>
-                <p>Recibe tus productos directamente en tu hogar.</p>
-            </div>
-            <div class="col-md-4">
-                <i class="fa fa-shield fa-3x mb-3"></i>
-                <h4>Seguridad y Confianza</h4>
-                <p>Productos diseñados para que los uses con total tranquilidad.</p>
-            </div>
-            <div class="col-md-4">
-                <i class="fa fa-credit-card fa-3x mb-3"></i>
-                <h4>Pago Seguro</h4>
-                <p>Transferencia o efectivo al recibir.</p>
-            </div>
-        </div>
+<!-- Formulario Login/Registro -->
+<div id="auth-forms" style="text-align:center; margin:30px;">
+    <div id="login-form" style="display:none;">
+        <h3>Iniciar Sesión</h3>
+        <input type="email" id="emailLogin" placeholder="Correo">
+        <input type="password" id="passwordLogin" placeholder="Contraseña">
+        <button id="btnLogin">Ingresar</button>
     </div>
-</section>
-
-<!-- Productos destacados mejorados -->
-<section class="featured-products py-5">
-    <div class="container">
-        <h2 class="text-center mb-4">Productos Destacados</h2>
-        <div class="row justify-content-center">
-
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="card shadow-sm">
-                    <img src="images/glass1.png" class="card-img-top" alt="Gafas 1">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Sunglasses 1</h5>
-                        <p class="card-text">$50</p>
-                        <button class="btn btn-primary add-to-cart" data-name="Sunglasses 1" data-price="50">Agregar</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="card shadow-sm">
-                    <img src="images/glass2.png" class="card-img-top" alt="Gafas 2">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Sunglasses 2</h5>
-                        <p class="card-text">$60</p>
-                        <button class="btn btn-primary add-to-cart" data-name="Sunglasses 2" data-price="60">Agregar</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="card shadow-sm">
-                    <img src="images/glass3.png" class="card-img-top" alt="Gafas 3">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Sunglasses 3</h5>
-                        <p class="card-text">$70</p>
-                        <button class="btn btn-primary add-to-cart" data-name="Sunglasses 3" data-price="70">Agregar</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="text-center mt-3">
-            <a href="glasses.html" class="btn btn-dark">Ver todos los productos</a>
-        </div>
+    <div id="register-form" style="display:none;">
+        <h3>Registrarse</h3>
+        <input type="email" id="emailRegistro" placeholder="Correo">
+        <input type="password" id="passwordRegistro" placeholder="Contraseña">
+        <button id="btnRegistro">Registrar</button>
     </div>
-</section>
-<!-- Panel del carrito -->
-<div id="cart-panel" class="cart-panel">
-    <h3>Carrito de Compras</h3>
-    <ul id="cart-items"></ul>
-    <p><strong>Total:</strong> $<span id="cart-total">0</span></p>
-     <button id="checkout-btn" class="btn btn-success">Finalizar Pedido</button>
-   <button id="close-btn" class="btn btn-secondary">Cerrar</button>
+    <p id="user-info" style="display:none;">Bienvenido, <span id="user-email"></span></p>
 </div>
 
-<!-- Footer -->
-<footer class="mt-5">
-    <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <ul class="location_icon">
-                        <li><a href="#"><i class="fa fa-map-marker"></i></a><br> Location</li>
-                        <li><a href="#"><i class="fa fa-phone"></i></a><br> +01 1234567890</li>
-                        <li><a href="#"><i class="fa fa-envelope"></i></a><br> demo@gmail.com</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="copyright">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p>© 2019 All Rights Reserved. Design by <a href="https://html.design/">Free Html Templates</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
+<!-- Aquí irían tus secciones hero, productos, carrito, footer, etc. -->
 
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+
+<!-- Carrito JS -->
 <script>
 $(document).ready(function(){
-    // Leer carrito desde localStorage o iniciar vacío
     let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
 
     function updateCart(){
@@ -222,12 +112,9 @@ $(document).ready(function(){
             );
         });
         $("#cart-total").text(total);
-
-        // Guardar siempre en localStorage
         localStorage.setItem('cartItems', JSON.stringify(cart));
     }
 
-    // Agregar productos
     $(".add-to-cart").click(function(){
         const name = $(this).data("name");
         const price = Number($(this).data("price"));
@@ -235,57 +122,95 @@ $(document).ready(function(){
         updateCart();
     });
 
-    // Eliminar productos
     $("#cart-items").on("click",".remove-item",function(){
         const index = $(this).data("index");
         cart.splice(index,1);
         updateCart();
     });
 
-    // Abrir/cerrar panel
     $("#open-cart").click(()=> $("#cart-panel").addClass("open"));
-   $("#close-btn").click(() => $("#cart-panel").removeClass("open")); // ✅ correcto
-
-
-    // Finalizar pedido
+    $("#close-btn").click(()=> $("#cart-panel").removeClass("open"));
     $("#checkout-btn").click(()=>{
         localStorage.setItem('cartItems', JSON.stringify(cart));
         localStorage.setItem('cartTotal', cart.reduce((sum,item)=>sum+item.price,0));
         window.location.href="checkout.html";
     });
 
-    // Mostrar carrito al cargar la página
     updateCart();
 });
-    
 </script>
-                        
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+
+<!-- Firebase -->
 <script type="module">
-import { registrar, login, logout } from "./js/firebaseApp.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
-// Botones de tu HTML
-document.getElementById('btnRegistro').addEventListener('click', () => {
-  const email = document.getElementById('emailRegistro').value;
-  const password = document.getElementById('passwordRegistro').value;
-  registrar(email, password)
-    .then(user => alert('Usuario registrado: ' + user.user.email))
-    .catch(error => alert(error.message));
+// Config Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyBdOgA-h-amWUFd5Yi5G3Zbz6gnGx1dRA",
+  authDomain: "pagina-web-estatica-44d09.firebaseapp.com",
+  projectId: "pagina-web-estatica-44d09",
+  storageBucket: "pagina-web-estatica-44d09.firebasestorage.app",
+  messagingSenderId: "414249141743",
+  appId: "1:414249141743:web:7139e7122fc7dd47d1a21a",
+  measurementId: "G-C9399TY7LD"
+};
+
+// Inicializar Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
+
+// Mostrar formularios
+$("#show-login").click(()=> { $("#login-form").show(); $("#register-form").hide(); });
+$("#show-register").click(()=> { $("#register-form").show(); $("#login-form").hide(); });
+
+// Registrar
+document.getElementById('btnRegistro').addEventListener('click', ()=>{
+    const email = document.getElementById('emailRegistro').value;
+    const password = document.getElementById('passwordRegistro').value;
+    createUserWithEmailAndPassword(auth,email,password)
+    .then(user=>alert('Usuario registrado: '+user.user.email))
+    .catch(err=>alert(err.message));
 });
 
-document.getElementById('btnLogin').addEventListener('click', () => {
-  const email = document.getElementById('emailLogin').value;
-  const password = document.getElementById('passwordLogin').value;
-  login(email, password)
-    .then(user => alert('Bienvenido: ' + user.user.email))
-    .catch(error => alert(error.message));
+// Login
+document.getElementById('btnLogin').addEventListener('click', ()=>{
+    const email = document.getElementById('emailLogin').value;
+    const password = document.getElementById('passwordLogin').value;
+    signInWithEmailAndPassword(auth,email,password)
+    .then(user=>{
+        alert('Bienvenido: '+user.user.email);
+        $("#user-email").text(user.user.email);
+        $("#user-info").show();
+        $("#btnLogout").show();
+        $("#login-form, #register-form").hide();
+    })
+    .catch(err=>alert(err.message));
 });
 
-document.getElementById('btnLogout').addEventListener('click', () => {
-  logout().then(() => alert('Sesión cerrada'));
+// Logout
+document.getElementById('btnLogout').addEventListener('click', ()=>{
+    signOut(auth).then(()=>{
+        alert('Sesión cerrada');
+        $("#user-info").hide();
+        $("#btnLogout").hide();
+    });
 });
-</script>
-                    </body>
 
-</html>
+
+    // Mantener sesión activa
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // Usuario conectado
+        $("#user-email").text(user.email);
+        $("#user-info").show();
+        $("#btnLogout").show();
+        $("#login-form, #register-form").hide();
+    } else {
+        // Usuario desconectado
+        $("#user-info").hide();
+        $("#btnLogout").hide();
+    }
+});
