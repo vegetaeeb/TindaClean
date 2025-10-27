@@ -262,5 +262,48 @@ $(document).ready(function(){
                         
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+                        <!-- Firebase: Sesión de usuario -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+
+// Configuración de Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyBdOgA-h-amWUFd5Yi5jG3Zbz6gnGx1dRA",
+  authDomain: "pagina-web-estatica-44d09.firebaseapp.com",
+  projectId: "pagina-web-estatica-44d09",
+  storageBucket: "pagina-web-estatica-44d09.firebasestorage.app",
+  messagingSenderId: "414249141743",
+  appId: "1:414249141743:web:7139e7122fc7dd47d1a21a",
+  measurementId: "G-C9399TY7LD"
+};
+
+// Inicializar Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Mostrar sesión activa
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // Usuario conectado
+    $("#user-email").text(user.email);
+    $("#user-info").show();     // Mostrar bienvenida
+    $("#btnLogout").show();     // Mostrar botón de cerrar sesión
+  } else {
+    // Usuario desconectado
+    $("#user-info").hide();
+    $("#btnLogout").hide();
+  }
+});
+
+// Cerrar sesión
+$("#btnLogout").click(() => {
+  signOut(auth).then(() => {
+    alert("Sesión cerrada");
+  });
+});
+</script>
+
 </body>
 </html>
+
