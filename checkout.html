@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - Sungla</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body class="container py-4">
+
+<h1>Finalizar Pedido</h1>
+
+<!-- Resumen del pedido antes del formulario -->
+<div id="order-summary" class="my-3"></div>
+
+<form id="checkout-form">
+    <div class="mb-3">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="phone">Teléfono:</label>
+        <input type="text" id="phone" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="email">Email:</label>
+        <input type="email" id="email" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="address">Dirección:</label>
+        <input type="text" id="address" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="payment-method">Método de pago:</label>
+        <select id="payment-method" class="form-control">
+            <option value="cod">Efectivo</option>
+            <option value="transfer">Transferencia Bancaria</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Confirmar Pedido</button>
+</form>
+
+<div id="ticket-container" class="my-4"></div>
+
+<script>
+(function(){
+    // Carrito de ejemplo, normalmente lo traes de localStorage
+    let cart = JSON.parse(localStorage.getItem('cartItems')) || [
+        {name:'Sunglasses 1', price:50},
+        {name:'Sunglasses 2', price:60}
+    ];
+    let total = cart.reduce((sum,i)=>sum+i.price,0);
+    let orderConfirmed = false;
+
+    function nextOrderNumber(){
+        const key = 'lastOrderNumber';
+        let last = parseInt(localStorage.getItem(key),10) || 10019;
+        const next = last + 1;
+        localStorage.setItem(key, next);
+        return next;
+    }
+
+    // Mostrar resumen visual antes del formulario
+    const summaryHTML = `
+        <div style="padding:15px; border:1px solid #ccc; background:#f8f8f8;">
+            <h4>Resumen de su compra:</h4>
+            <ul>
+                ${cart.map(it=>`<li>${it.name} - $${it.price}</li>`).join('')}
+            </ul>
+            <p><strong>Total:</strong> $${total}</p>
+        </div>
+    `;
+    $('#order-summary').html(summaryHTML);
+
+    $('#checkout-form').on('submit', function(e){
+        e.preventDefault();
+        if(orderConfirmed){ alert('Pedido ya confirmado'); return; }
+
+        const name = $('#name').val();
+        const phone = $('#phone').val();
+        const email = $('#email').val();
+        const address = $('#address').val();
+        const paymentMethod = $('#payment-method').val();
+        const orderNum = nextOrderNumber();
+
+        // Crear ticket visual (boucher)
+        const ticketHTML = `
+            <div style="font-family:Arial; padding:20px; border:1px solid #333; width:350px;">
+                <h2 style="text-align:center;">Sungla Store</h2>
+                <p><strong>Pedido #:</strong> ${orderNum}</p>
+                <p><strong>Cliente:</strong> ${name}</p>
+                <p><strong>Tel:</strong> ${phone}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Dirección:</strong> ${address}</p>
+                <p><strong>Método de pago:</strong> ${paymentMethod==='cod'?'Efectivo':'Transferencia'}</p>
+                <h3>Productos:</h3>
+                <ul>
+                    ${cart.map(it=>`<li>${it.name} - $${it.price}</li>`).join('')}
+                </ul>
+                <p><strong>Total:</strong> $${total}</p>
+                <p style="font-size:0.85rem;">Gracias por su compra! Cobro al momento de entrega.</p>
+            </div>
+        `;
+        $('#ticket-container').html(ticketHTML);
+
+        // Botón para descargar PDF
+        const downloadBtn = $('<button class="btn btn-primary my-2">Descargar ticket PDF</button>');
+        downloadBtn.on('click', function(){
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.html(document.querySelector('#ticket-container'), {
+                callback: function(doc){ doc.save(`pedido_${orderNum}.pdf`); },
+                x:10, y:10, width:180
+            });
+        });
+
+        // Botón regresar al inicio
+        const homeBtn = $('<button class="btn btn-secondary my-2 ml-2">Regresar al inicio</button>');
+        homeBtn.on('click', function(){ window.location.href = "index.html"; });
+
+        $('#ticket-container').append(downloadBtn).append(homeBtn);
+
+        orderConfirmed = true;
+        $('#checkout-form button[type=submit]').prop('disabled',true);
+        localStorage.removeItem('cartItems');
+        localStorage.removeItem('cartTotal');
+    });
+})();
+</script>
+
+</body>
+</html>
