@@ -1,9 +1,13 @@
-// js/firebaseApp.js
+// ===============================
+// Importar módulos de Firebase
+// ===============================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
-// Configuración de tu Firebase
+// ===============================
+// Configuración de Firebase
+// ===============================
 const firebaseConfig = {
   apiKey: "AIzaSyBdOgA-h-amWUFd5Yi5G3Zbz6gnGx1dRA",
   authDomain: "pagina-web-estatica-44d09.firebaseapp.com",
@@ -14,23 +18,48 @@ const firebaseConfig = {
   measurementId: "G-C9399TY7LD"
 };
 
+// ===============================
 // Inicializar Firebase
+// ===============================
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 
-// Registro
-export function registrar(email, password) {
+// ===============================
+// Funciones de autenticación
+// ===============================
+function registrar(email, password) {
   return createUserWithEmailAndPassword(auth, email, password);
 }
 
-// Login
-export function login(email, password) {
+function login(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
 }
 
-// Logout
-export function logout() {
+function logout() {
   return signOut(auth);
 }
+
+// ===============================
+// Conectar con botones HTML
+// ===============================
+document.getElementById('btnRegistro')?.addEventListener('click', () => {
+  const email = document.getElementById('emailRegistro').value;
+  const password = document.getElementById('passwordRegistro').value;
+  registrar(email, password)
+    .then(user => alert('Usuario registrado: ' + user.user.email))
+    .catch(error => alert(error.message));
+});
+
+document.getElementById('btnLogin')?.addEventListener('click', () => {
+  const email = document.getElementById('emailLogin').value;
+  const password = document.getElementById('passwordLogin').value;
+  login(email, password)
+    .then(user => alert('Bienvenido: ' + user.user.email))
+    .catch(error => alert(error.message));
+});
+
+document.getElementById('btnLogout')?.addEventListener('click', () => {
+  logout().then(() => alert('Sesión cerrada'));
+});
 
