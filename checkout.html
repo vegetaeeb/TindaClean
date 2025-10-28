@@ -197,10 +197,44 @@ $(document).ready(function(){
     // Mostrar carrito al cargar la página
     updateCart();
 });
+
+// Crear ticket visual (boucher)
+        const ticketHTML = `
+            <div style="font-family:Arial; padding:20px; border:1px solid #333; width:350px;">
+                <h2 style="text-align:center;">Sungla Store</h2>
+                <p><strong>Pedido #:</strong> ${orderNum}</p>
+                <p><strong>Cliente:</strong> ${name}</p>
+                <p><strong>Tel:</strong> ${phone}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Dirección:</strong> ${address}</p>
+                <p><strong>Método de pago:</strong> ${paymentMethod==='cod'?'Efectivo':'Transferencia'}</p>
+                <h3>Productos:</h3>
+                <ul>
+                    ${cart.map(it=>`<li>${it.name} - $${it.price}</li>`).join('')}
+                </ul>
+                <p><strong>Total:</strong> $${total}</p>
+                <p style="font-size:0.85rem;">Gracias por su compra! Cobro al momento de entrega.</p>
+            </div>
+        `;
+        $('#ticket-container').html(ticketHTML);
+
+        // Botón para descargar PDF
+        const downloadBtn = $('<button class="btn btn-primary my-2">Descargar ticket PDF</button>');
+        downloadBtn.on('click', function(){
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.html(document.querySelector('#ticket-container'), {
+                callback: function(doc){ doc.save(`pedido_${orderNum}.pdf`); },
+                x:10, y:10, width:180
+            });
+        });
+
+  
 </script>
     
 </body>
 </html>
+
 
 
 
