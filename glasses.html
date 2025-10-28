@@ -359,10 +359,35 @@ $(document).ready(function(){
     // Mostrar carrito al cargar la página
     updateCart();
 });
+    function agregarAlCarrito(producto) {
+  let carrito = JSON.parse(localStorage.getItem('cartItems')) || [];
+  carrito.push(producto);
+  localStorage.setItem('cartItems', JSON.stringify(carrito));
+
+  // Actualizar contador si existe
+  const cartCount = document.getElementById('cart-count');
+  if (cartCount) cartCount.textContent = carrito.length;
+
+  // Mensaje temporal
+  const toast = document.createElement('div');
+  toast.textContent = `✅ ${producto.name} agregado al carrito`;
+  toast.style.position = 'fixed';
+  toast.style.bottom = '20px';
+  toast.style.left = '50%';
+  toast.style.transform = 'translateX(-50%)';
+  toast.style.background = '#0d6efd';
+  toast.style.color = 'white';
+  toast.style.padding = '10px 20px';
+  toast.style.borderRadius = '8px';
+  toast.style.zIndex = '9999';
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 2000);
+}
 </script>
 
 </body>
 </html>
+
 
 
 
