@@ -272,17 +272,34 @@ $(document).ready(function(){
   // Asegúrate de que Auth0 esté inicializado antes
   let auth0 = null;
 
-  async function initAuth0() {
-    auth0 = await createAuth0Client({
-      domain: "dev-gczye7k6j72ulyuy.us.auth0.com",
-      client_id: "yQaeyckqoA1iahtw9LdBRApSJcfp6GED",
-      redirect_uri: window.location.origin
-    });
+ async function initAuth0() {
+  auth0 = await createAuth0Client({
+    domain: "dev-gczye7k6j72ulyuy.us.auth0.com",
+    client_id: "yQaeyckqoA1iahtw9LdBRApSJcfp6GED",
+    redirect_uri: window.location.origin
+  });
+
+  // ✅ Procesa el callback si viene con ?code=...&state=...
+  if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
+    try {
+      await auth0.handleRedirectCallback();
+      window.history.replaceState({}, document.title, "/"); // Limpia la URL
+    } catch (err) {
+      console.error("Error al manejar el callback:", err);
+    }
   }
 
-  async function loginWithAuth0() {
-    await auth0.loginWithRedirect();
+  // ✅ Verifica si el usuario está autenticado
+  const isAuthenticated = await auth0.isAuthenticated();
+  if (isAuthenticated) {
+    const user = await auth0.getUser();
+    console.log("Usuario autenticado:", user);
+    // Puedes mostrar el perfil si quieres
+    const profileElement = document.createElement("pre");
+    profileElement.innerText = JSON.stringify(user, null, 2);
+    document.body.appendChild(profileElement);
   }
+}
 
   // Inicializa Auth0 al cargar la página
   window.onload = initAuth0;
@@ -292,6 +309,7 @@ $(document).ready(function(){
 
 </body>
 </html>
+
 
 
 
