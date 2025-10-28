@@ -331,12 +331,18 @@ $(document).ready(function(){
     }
 
     // Agregar productos
-    $(".add-to-cart").click(function(){
-        const name = $(this).data("name");
-        const price = Number($(this).data("price"));
-        cart.push({name, price});
-        updateCart();
-    });
+  $(".add-to-cart").click(function(){
+    const name = $(this).data("name");
+    const price = Number($(this).data("price"));
+    const producto = {name, price};
+    
+    // Agregar al carrito y mostrar toast
+    agregarAlCarrito(producto);
+    
+    // Actualizar lista del panel
+    cart.push(producto);
+    updateCart();
+});
 
     // Eliminar productos
     $("#cart-items").on("click",".remove-item",function(){
@@ -387,6 +393,7 @@ $(document).ready(function(){
 
 </body>
 </html>
+
 
 
 
