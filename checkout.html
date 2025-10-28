@@ -1,83 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de compra</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 10px;
+    }
+
+    .checkout-container {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      padding: 30px;
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    .form-container {
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #0d6efd;
+      margin-bottom: 25px;
+    }
+
+    .btn-custom {
+      background-color: #0d6efd;
+      color: white;
+      font-weight: 600;
+      width: 100%;
+    }
+
+    .btn-custom:hover {
+      background-color: #084298;
+    }
+
+    .cart-box {
+      background-color: #f9fafb;
+      border-radius: 10px;
+      padding: 20px;
+      height: 100%;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .cart-empty {
+      text-align: center;
+      color: #888;
+      padding: 40px 0;
+      font-style: italic;
+    }
+  </style>
+</head>
+
 <body>
-  <div class="container py-5">
-    <div class="row justify-content-center g-4">
+  <div class="checkout-container">
+    <div class="row">
       
       <!-- 🧾 Formulario -->
-      <div class="col-md-6">
-        <div class="form-container">
-          <h1>Formulario de compra</h1>
+      <div class="col-md-6 form-container">
+        <h1>Formulario de compra</h1>
+        <form id="form">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" class="form-control" name="name" id="name" required>
+          </div>
 
-          <form id="form">
-            <div class="mb-3">
-              <label for="name" class="form-label">Nombre</label>
-              <input type="text" class="form-control" name="name" id="name" required>
-            </div>
+          <div class="mb-3">
+            <label for="last" class="form-label">Apellido</label>
+            <input type="text" class="form-control" name="last" id="last" required>
+          </div>
 
-            <div class="mb-3">
-              <label for="last" class="form-label">Apellido</label>
-              <input type="text" class="form-control" name="last" id="last" required>
-            </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">Teléfono</label>
+            <input type="text" class="form-control" name="phone" id="phone" required>
+          </div>
 
-            <div class="mb-3">
-              <label for="phone" class="form-label">Teléfono</label>
-              <input type="text" class="form-control" name="phone" id="phone" required>
-            </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" name="email" id="email" required>
+          </div>
 
-            <div class="mb-3">
-              <label for="email" class="form-label">Correo electrónico</label>
-              <input type="email" class="form-control" name="email" id="email" required>
-            </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Mensaje</label>
+            <textarea class="form-control" name="message" id="message" rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
+          </div>
 
-            <div class="mb-3">
-              <label for="message" class="form-label">Mensaje</label>
-              <textarea class="form-control" name="message" id="message" rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
-            </div>
-
-            <input type="submit" id="button" class="btn btn-custom" value="Enviar mensaje">
-          </form>
-        </div>
+          <input type="submit" id="button" class="btn btn-custom" value="Enviar mensaje">
+        </form>
       </div>
 
       <!-- 🛒 Carrito -->
       <div class="col-md-6">
-        <div class="form-container">
-          <h1>Carrito</h1>
-
-          <div id="cart">
-            <!-- Ejemplo de producto -->
-            <div class="cart-item d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
-              <div>
-                <strong>Detergente ecológico</strong><br>
-                <small>1 litro</small>
-              </div>
-              <span>$3.500</span>
-            </div>
-
-            <div class="cart-item d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
-              <div>
-                <strong>Desinfectante natural</strong><br>
-                <small>500 ml</small>
-              </div>
-              <span>$2.000</span>
-            </div>
-
-            <div class="cart-item d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
-              <div>
-                <strong>Limpiavidrios</strong><br>
-                <small>500 ml</small>
-              </div>
-              <span>$1.800</span>
-            </div>
-
-            <!-- Total -->
-            <div class="d-flex justify-content-between align-items-center mt-3">
-              <h5>Total:</h5>
-              <h5>$7.300</h5>
-            </div>
-
-            <div class="text-center mt-3">
-              <button class="btn btn-success w-100">Finalizar compra</button>
-            </div>
+        <h1>Carrito</h1>
+        <div id="cart" class="cart-box">
+          <div class="cart-empty">
+            Tu carrito está vacío 🛒
           </div>
         </div>
       </div>
@@ -87,36 +122,26 @@
 
   <!-- EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
   <script>
     emailjs.init('V-hMWsxBw8_MPntU5'); // Tu Public Key
 
     const btn = document.getElementById('button');
+    document.getElementById('form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      btn.value = 'Enviando...';
+      const serviceID = 'default_service';
+      const templateID = 'template_hqqxl2k';
 
-    document.getElementById('form')
-      .addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        btn.value = 'Enviando...';
-
-        const serviceID = 'default_service';
-        const templateID = 'template_hqqxl2k';
-
-        emailjs.sendForm(serviceID, templateID, this)
-          .then(() => {
-            btn.value = 'Enviar mensaje';
-            alert('✅ Correo enviado correctamente');
-            this.reset();
-          }, (err) => {
-            btn.value = 'Enviar mensaje';
-            alert('❌ Error al enviar: ' + JSON.stringify(err));
-          });
-      });
+      emailjs.sendForm(serviceID, templateID, this)
+        .then(() => {
+          btn.value = 'Enviar mensaje';
+          alert('✅ Correo enviado correctamente');
+          this.reset();
+        }, (err) => {
+          btn.value = 'Enviar mensaje';
+          alert('❌ Error al enviar: ' + JSON.stringify(err));
+        });
+    });
   </script>
-
-  <style>
-    .cart-item strong {
-      color: #0d6efd;
-    }
-  </style>
 </body>
+</html>
