@@ -256,7 +256,7 @@ button {
 /*-- navigation--*/
 
 .navigation.navbar {
-     float: right;
+     float: center;
      background: #fff;
      clear: both;
      padding: 23px 25px !important;
@@ -867,3 +867,4 @@ body > .featured-products {
 footer {
     margin-top: auto; /* Empuja el footer hacia abajo */
 }
+
