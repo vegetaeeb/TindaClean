@@ -108,9 +108,7 @@
             <textarea class="form-control" name="message" id="message" rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
           </div>
 
-          <!-- Campo oculto para enviar los productos del carrito -->
           <input type="hidden" name="cartDetails" id="cartDetails">
-
           <input type="submit" id="button" class="btn btn-custom" value="Enviar mensaje">
         </form>
       </div>
@@ -129,23 +127,19 @@
       event.preventDefault();
       btn.value = 'Enviando...';
 
-      // 🛒 Obtener carrito
       let carrito = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-      // 🔹 Detalle del carrito
       let detalleCarrito = carrito.length > 0
         ? carrito.map((p, i) => `${i + 1}. ${p.name} - $${p.price}`).join('\n')
         : 'Sin productos en el carrito.';
 
-      // 🔹 Total
       let total = carrito.reduce((sum, p) => sum + (p.price || 0), 0);
 
-      // 🔹 Número de pedido secuencial
+      // Número de pedido secuencial
       let ultimoPedido = parseInt(localStorage.getItem('ultimoPedido')) || 0;
       let numeroPedido = ultimoPedido + 1;
       localStorage.setItem('ultimoPedido', numeroPedido);
 
-      // 🔹 FormData para EmailJS
       const formData = {
         name: form.name.value,
         last: form.last.value,
@@ -157,7 +151,6 @@
         numero_pedido: numeroPedido
       };
 
-      // Enviar correo
       const serviceID = 'default_service';
       const templateID = 'template_hqqxl2k';
 
@@ -167,7 +160,6 @@
           alert('✅ Correo enviado correctamente con el detalle del carrito');
           form.reset();
 
-          // 🔹 Generar boucher después de enviar
           generarBoucher(carrito, total, numeroPedido);
         })
         .catch((err) => {
@@ -176,7 +168,7 @@
         });
     });
 
-    // 🔹 Función para generar el boucher
+    // Función para generar boucher
     function generarBoucher(cart, total, numeroPedido) {
       const ticketHTML = `
         <h4 class="text-center mb-3">Sungla Store</h4>
@@ -189,10 +181,8 @@
       `;
       document.getElementById('ticket-container').innerHTML = ticketHTML;
     }
-  </script>
 
-  <!-- 🛒 Script del carrito / resumen -->
-  <script>
+    // Mostrar resumen y boucher al cargar la página
     (function() {
       let cart = JSON.parse(localStorage.getItem('cartItems')) || [
         {name:'Desinfectante Natural', price:2500},
@@ -201,11 +191,15 @@
       ];
       let total = cart.reduce((sum,i)=>sum+i.price,0);
 
+      // Número de pedido actual para mostrar
+      let ultimoPedido = parseInt(localStorage.getItem('ultimoPedido')) || 0;
+      let numeroPedido = ultimoPedido + 1;
+
       const orderHTML = `
         <div style="padding:15px; background:#eef5ff; border-radius:8px;">
           <h5>Resumen de su compra:</h5>
           <ul style="list-style:none; padding:0;">
-              ${cart.map(it=>`<li class="cart-item"><span>${it.name}</span><span>$${it.price}</span></li>`).join('')}
+            ${cart.map(it=>`<li class="cart-item"><span>${it.name}</span><span>$${it.price}</span></li>`).join('')}
           </ul>
           <p class="text-end mt-2"><strong>Total:</strong> $${total}</p>
           <div class="text-center mt-3">
@@ -215,13 +209,15 @@
       `;
       document.getElementById('order-summary').innerHTML = orderHTML;
 
+      // Generar boucher inicial
+      generarBoucher(cart, total, numeroPedido);
+
+      // Botón para regenerar boucher
       document.getElementById('btnTicket').addEventListener('click', () => {
-        // Generar número de pedido secuencial para boucher
-        let ultimoPedido = parseInt(localStorage.getItem('ultimoPedido')) || 0;
-        let numeroPedido = ultimoPedido;
         generarBoucher(cart, total, numeroPedido);
       });
     })();
   </script>
 </body>
 </html>
+
