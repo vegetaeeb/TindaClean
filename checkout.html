@@ -150,7 +150,8 @@
   email: form.email.value,
   message: form.message.value,
   carrito_detalle: detalleCarrito, // ← COMA AQUÍ
-  total: total
+  total: total,
+  numero_pedido: numeroPedido // ✅ agregado al correo  
 };
 
 
@@ -198,23 +199,25 @@
       `;
       document.getElementById('order-summary').innerHTML = orderHTML;
 
-      document.getElementById('btnTicket').addEventListener('click', ()=>{
-          const orderNum = Math.floor(Math.random()*100000);
-          const ticketHTML = `
-              <h4 class="text-center mb-3">Sungla Store</h4>
-              <p><strong>Pedido #:</strong> ${orderNum}</p>
-              <ul style="list-style:none; padding:0;">
-                  ${cart.map(it=>`<li>${it.name} - $${it.price}</li>`).join('')}
-              </ul>
-              <p><strong>Total:</strong> $${total}</p>
-              <p class="mt-3 text-center" style="font-size:0.85rem;">Gracias por su compra. Pago al recibir.</p>
-          `;
+      document.getElementById('btnTicket').addEventListener('click', () => {
+  const ticketHTML = `
+    <h4 class="text-center mb-3">Sungla Store</h4>
+    <p><strong>Pedido #:</strong> ${numeroPedido}</p>
+    <ul style="list-style:none; padding:0;">
+        ${cart.map(it => `<li>${it.name} - $${it.price}</li>`).join('')}
+    </ul>
+    <p><strong>Total:</strong> $${total}</p>
+    <p class="mt-3 text-center" style="font-size:0.85rem;">Gracias por su compra. Pago al recibir.</p>
+  `;
+  document.getElementById('ticket-container').innerHTML = ticketHTML;
+});
           document.getElementById('ticket-container').innerHTML = ticketHTML;
       });
   })();
   </script>
 </body>
 </html>
+
 
 
 
