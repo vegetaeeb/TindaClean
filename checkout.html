@@ -217,18 +217,32 @@
       });
     });
 
-    function generarBoucher(cart, total, numeroPedido) {
-      const ticketHTML = `
-        <h4 class="text-center mb-3">Sungla Store</h4>
-        <p><strong>Pedido #:</strong> ${numeroPedido}</p>
-        <ul style="list-style:none; padding:0;">
-          ${cart.map(it => `<li>${it.name} - $${it.price}</li>`).join('')}
-        </ul>
-        <p><strong>Total:</strong> $${total}</p>
-        <p class="mt-3 text-center" style="font-size:0.85rem;">Gracias por su compra. Pago al recibir.</p>
-      `;
-      document.getElementById('ticket-container').innerHTML = ticketHTML;
-    }
+  function generarBoucher(cart, total, numeroPedido) {
+  const ticketHTML = `
+    <h4 class="text-center mb-3">Sungla Store</h4>
+    <p><strong>Pedido #:</strong> ${numeroPedido}</p>
+    <ul style="list-style:none; padding:0;">
+      ${cart.map(it => `<li>${it.name} - $${it.price}</li>`).join('')}
+    </ul>
+    <p><strong>Total:</strong> $${total}</p>
+    <p class="mt-3 text-center" style="font-size:0.85rem;">Gracias por su compra. Pago al recibir.</p>
+  `;
+  document.getElementById('ticket-container').innerHTML = ticketHTML;
+
+  // 🔹 Generar PDF al mismo tiempo
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  let y = 10;
+  doc.setFontSize(16);
+  doc.text(`Sungla Store`, 10, y); y += 10;
+  doc.setFontSize(12);
+  doc.text(`Pedido #: ${numeroPedido}`, 10, y); y += 10;
+  
+  cart.forEach((item, i) => {
+    doc.text(`${i + 1}. ${item.name} - $${item.price}`, 10, y);
+    y += 10;
+  });
 
     // 🔹 Generar PDF
   const { jsPDF } = window.jspdf;
@@ -285,5 +299,6 @@
   </script>
 </body>
 </html>
+
 
 
