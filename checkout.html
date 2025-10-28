@@ -41,7 +41,7 @@
   const btn = document.getElementById('button');
 
   // 🔹 Inicializa EmailJS con tu Public Key
-  emailjs.init("xrf2Ax66ElkV8Y_Bi"); 
+  emailjs.init("V-hMWsxBw8_MPntU5"); 
 
   document.getElementById('form')
   .addEventListener('submit', function(event) {
@@ -49,7 +49,7 @@
 
     btn.value = 'Enviando...';
 
-    const serviceID = 'service_4c4o0vs'; // ⚠️ Usa tu Service ID real de EmailJS
+    const serviceID = 'service_4o5h4ku'; // ⚠️ Usa tu Service ID real de EmailJS
     const templateID = 'template_hqqxl2k'; // ⚠️ Usa tu Template ID real
 
     emailjs.sendForm(serviceID, templateID, this)
