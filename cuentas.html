@@ -35,29 +35,34 @@
   </div>
 
   <!-- EmailJS -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>
-    emailjs.init('V-hMWsxBw8_MPntU5');
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-    const btn = document.getElementById('button');
-    document.getElementById('form').addEventListener('submit', function(event) {
-      event.preventDefault();
-      btn.value = 'Enviando...';
+<script const btn = document.getElementById('button');
 
-      const serviceID = 'service_4o5h4ku';
-      const templateID = 'template_hqqxl2k';
+document.getElementById('form')
+ .addEventListener('submit', function(event) {
+   event.preventDefault();
 
-      emailjs.sendForm(serviceID, templateID, this)
-        .then(() => {
-          btn.value = 'Enviar mensaje';
-          alert('Mensaje enviado correctamente!');
-        }, (err) => {
-          btn.value = 'Enviar mensaje';
-          alert(JSON.stringify(err));
-        });
+   btn.value = 'Sending...';
+
+   const serviceID = 'default_service';
+   const templateID = 'template_hqqxl2k';
+
+   emailjs.sendForm(serviceID, templateID, this)
+    .then(() => {
+      btn.value = 'Send Email';
+      alert('Sent!');
+    }, (err) => {
+      btn.value = 'Send Email';
+      alert(JSON.stringify(err));
     });
-  </script>
+});
+</script>
+
 </body>
+  
 </html>
+
 
 
