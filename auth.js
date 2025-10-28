@@ -2,7 +2,7 @@ window.onload = async () => {
   const auth0 = await createAuth0Client({
     domain: "dev-gczye7k6j72ulyuy.us.auth0.com",
     client_id: "yQaeyckqoA1iahtw9LdBRApSJcfp6GED",
-  redirect_uri: "https://vegetaeeb.github.io/TClean/"
+  redirect_uri: "https://vegetaeeb.github.io/TClean/index.html"
 });
 
 
