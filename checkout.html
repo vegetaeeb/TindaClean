@@ -135,9 +135,9 @@
     let carrito = JSON.parse(localStorage.getItem('cartItems')) || [];
 
     // 🔹 Generar texto con el detalle del carrito
-    let detalleCarrito = carrito.length > 0
-      ? carrito.map((p, i) => `${i + 1}. ${p.nombre} - Cantidad: ${p.cantidad} - Precio: $${p.precio}`).join('\n')
-      : 'Sin productos en el carrito.';
+   let detalleCarrito = carrito.length > 0
+  ? carrito.map((p, i) => `${i + 1}. ${p.name} - $${p.price}`).join('\n')
+  : 'Sin productos en el carrito.';
 
     // 📨 Crear objeto con los datos del formulario + detalle del carrito
     const formData = {
@@ -210,6 +210,7 @@
   </script>
 </body>
 </html>
+
 
 
 
