@@ -252,9 +252,33 @@ $(document).ready(function(){
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+ (function(){
+    emailjs.init("service_4c4o0vs"); // lo copias desde tu panel de EmailJS
+  })();
 
+  document.getElementById("formCompra").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const nombre = this.nombre.value;
+    const email = this.email.value;
+
+    // 🔹 Enviar correo por EmailJS
+    emailjs.send("service_4c4o0vs", "template_8patfxt", {
+      nombre: nombre,
+      email: email
+    }).then(function() {
+      alert("✅ Compra realizada. Se envió un correo de confirmación.");
+
+      // 🔹 Descargar PDF automáticamente
+      window.open("boleta.pdf", "_blank");
+
+    }, function(error) {
+      alert("❌ Error al enviar el correo: " + JSON.stringify(error));
+    });
+  });
 </body>
 </html>
+
 
 
 
