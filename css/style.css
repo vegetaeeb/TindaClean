@@ -257,16 +257,15 @@ button {
 
 .navigation.navbar {
     display: flex;
-    justify-content: center; /* centra los links */
-    align-items: center;
+    justify-content: center; /* centra los links del menú */
+    align-items: center;     /* centra verticalmente todo */
     background: #fff;
     padding: 15px 40px;
     border-radius: 64px;
     position: relative;
-    width: auto;
-    margin: 0 auto;
 }
 
+/* Lista de links */
 .navigation.navbar .navbar-nav {
     display: flex;
     gap: 25px;
@@ -274,16 +273,22 @@ button {
     margin: 0;
     padding: 0;
 }
+
+/* Links normales */
+.navigation.navbar .navbar-nav .nav-link {
+    color: #070404;
+    font-weight: 500;
+    font-size: 17px;
+    text-decoration: none;
+}
+
 .navigation.navbar .navbar-nav .nav-link:hover {
     color: #03cafc;
 }
 
 /* Carrito a la derecha */
 .nav-item.sea_icon {
-    position: absolute;
-    right: 25px; /* ajusta según el margen que quieras */
-    top: 50%;
-    transform: translateY(-50%);
+    margin-left: auto;  /* empuja el carrito al final del flex container */
 }
 
 .nav-item.sea_icon .nav-link {
@@ -296,20 +301,6 @@ button {
 .nav-item.sea_icon .nav-link:hover {
     color: #03cafc;
 }
-
-/* Links normales */
-.navigation.navbar .navbar-nav .nav-link {
-    color: #070404;
-    font-weight: 500;
-    font-size: 17px;
-    text-decoration: none;
-}
-.navigation.navbar-dark .navbar-nav .nav-link {
-     padding: 0 20px;
-     color: #070404;
-     font-size: 17px;
-     line-height: 20px;
-     font-weight: 500;
 }
 
 .navigation.navbar-dark .navbar-nav .nav-link:focus,
@@ -908,5 +899,6 @@ body > .featured-products {
 footer {
     margin-top: auto; /* Empuja el footer hacia abajo */
 }
+
 
 
