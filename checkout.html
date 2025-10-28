@@ -170,13 +170,18 @@
       const templateID = 'template_hqqxl2k';
 
       emailjs.send(serviceID, templateID, formData)
-        .then(() => {
-          btn.value = 'Enviar mensaje';
-          alert('✅ Correo enviado correctamente con el detalle del carrito');
-          form.reset();
+  .then(() => {
+    btn.value = 'Enviar mensaje';
+    alert('✅ Correo enviado correctamente con el detalle del carrito');
+    form.reset();
 
-          generarBoucher(carrito, total, numeroPedido);
-        })
+    // 🔹 Limpiar carrito y contador
+    localStorage.removeItem('cartItems');
+    const cartCount = document.getElementById('cart-count');
+    if (cartCount) cartCount.textContent = 0; // Si existe el contador, ponerlo en 0
+
+    generarBoucher([], 0, numeroPedido); // Mostrar un boucher vacío
+  })
         .catch((err) => {
           btn.value = 'Enviar mensaje';
           alert('❌ Error al enviar: ' + JSON.stringify(err));
@@ -241,6 +246,7 @@
  <button class="btn-regresar" onclick="volverInicio()">⬅ Regresar al inicio</button>
 </body>
 </html>
+
 
 
 
