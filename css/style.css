@@ -260,7 +260,7 @@ button {
      background: #fff;
      clear: both;
      padding: 23px 25px !important;
-     border-radius: 64px;
+     border-radius: 32px;
 }
 
 .navigation.navbar-dark .navbar-nav .nav-link {
@@ -867,4 +867,5 @@ body > .featured-products {
 footer {
     margin-top: auto; /* Empuja el footer hacia abajo */
 }
+
 
