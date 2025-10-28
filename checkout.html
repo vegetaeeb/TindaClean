@@ -35,29 +35,32 @@
   </div>
 
   <!-- EmailJS -->
-<script type="text/javascript"
-  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-<script const btn = document.getElementById('button');
+<script>
+  const btn = document.getElementById('button');
 
-document.getElementById('form')
- .addEventListener('submit', function(event) {
-   event.preventDefault();
+  // 🔹 Inicializa EmailJS con tu Public Key
+  emailjs.init("xrf2Ax66ElkV8Y_Bi"); 
 
-   btn.value = 'Sending...';
+  document.getElementById('form')
+  .addEventListener('submit', function(event) {
+    event.preventDefault();
 
-   const serviceID = 'default_service';
-   const templateID = 'template_hqqxl2k';
+    btn.value = 'Enviando...';
 
-   emailjs.sendForm(serviceID, templateID, this)
-    .then(() => {
-      btn.value = 'Send Email';
-      alert('Sent!');
-    }, (err) => {
-      btn.value = 'Send Email';
-      alert(JSON.stringify(err));
-    });
-});
+    const serviceID = 'service_4c4o0vs'; // ⚠️ Usa tu Service ID real de EmailJS
+    const templateID = 'template_hqqxl2k'; // ⚠️ Usa tu Template ID real
+
+    emailjs.sendForm(serviceID, templateID, this)
+      .then(() => {
+        btn.value = 'Enviar mensaje';
+        alert('✅ Correo enviado correctamente');
+      }, (err) => {
+        btn.value = 'Enviar mensaje';
+        alert('❌ Error al enviar: ' + JSON.stringify(err));
+      });
+  });
 </script>
 
 </body>
