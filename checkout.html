@@ -232,11 +232,16 @@
         generarBoucher(cart, total, numeroPedido);
       });
     })();
+    function volverInicio() {
+  localStorage.removeItem('cartItems');  // 🔹 Limpia el carrito
+  window.location.href = 'index.html';   // 🔹 Redirige a inicio
+}
   </script>
    <!-- 🔙 Botón de regreso -->
-  <button class="btn-regresar" onclick="window.location.href='index.html'">⬅ Regresar al inicio</button>
+ <button class="btn-regresar" onclick="volverInicio()">⬅ Regresar al inicio</button>
 </body>
 </html>
+
 
 
 
