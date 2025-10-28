@@ -139,6 +139,9 @@
   ? carrito.map((p, i) => `${i + 1}. ${p.name} - $${p.price}`).join('\n')
   : 'Sin productos en el carrito.';
 
+    // 🔹 Calcular total
+  let total = carrito.reduce((sum, p) => sum + (p.price || 0), 0);
+
     // 📨 Crear objeto con los datos del formulario + detalle del carrito
     const formData = {
       name: form.name.value,
@@ -211,6 +214,7 @@
   </script>
 </body>
 </html>
+
 
 
 
