@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sungla - Home</title>
@@ -12,6 +10,7 @@
 <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <style>
 /* Carrito flotante */
 .cart-panel {
@@ -47,6 +46,7 @@
 .remove-item:hover { color: red; }
 </style>
 </head>
+
 <body class="main-layout position_head">
 
 <!-- Header -->
@@ -68,37 +68,36 @@
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                    <div class="collapse navbar-collapse" id="navbarsExample04">
-    <ul class="navbar-nav mr-auto">
-    <li class="nav-item active"><a class="nav-link" href="index.html">Inicio</a></li>
-        <li class="nav-item"><a class="nav-link" href="glasses.html">Productos</a></li>
-        <li class="nav-item"><a class="nav-link" href="contact.html">Contactanos</a></li>
+                        <div class="collapse navbar-collapse" id="navbarsExample04">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active"><a class="nav-link" href="index.html">Inicio</a></li>
+                                <li class="nav-item"><a class="nav-link" href="glasses.html">Productos</a></li>
+                                <li class="nav-item"><a class="nav-link" href="contact.html">Contactanos</a></li>
 
-                <!-- Dropdown Login -->
+                                <!-- Cuenta (sin Auth0) -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="login.html">Cuenta</a>
+                                </li>
 
-<li class="nav-item">
-  <a class="nav-link" href="#" onclick="loginWithAuth0()">Cuenta</a>
-</li>
-
-
-
-
-
-        <!-- Carrito -->
-        <li class="nav-item sea_icon">
-            <a class="nav-link" href="#" id="open-cart">
-                <i class="fa fa-shopping-cart"></i> <span id="cart-count">0</span>
-            </a>
-        </li>
-    </ul>
-</div>
+                                <!-- Carrito -->
+                                <li class="nav-item sea_icon">
+                                    <a class="nav-link" href="#" id="open-cart">
+                                        <i class="fa fa-shopping-cart"></i> <span id="cart-count">0</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
 
-<!-- Productos destacados -->
+<!-- Hero -->
 <section class="hero-section" style="background: url('images/banner-bg.jpg') center/cover no-repeat; padding: 100px 0; text-align: center; color: #fff;">
     <h1 class="display-4 font-weight-bold">Protege tus ojos con estilo</h1>
     <p class="lead">Lentes modernos, cómodos y con protección UV</p>
-   
 </section>
 
 <!-- Beneficios -->
@@ -124,7 +123,7 @@
     </div>
 </section>
 
-<!-- Productos destacados mejorados -->
+<!-- Productos -->
 <section class="featured-products py-5">
     <div class="container">
         <h2 class="text-center mb-4">Productos Destacados</h2>
@@ -170,13 +169,14 @@
         </div>
     </div>
 </section>
+
 <!-- Panel del carrito -->
 <div id="cart-panel" class="cart-panel">
     <h3>Carrito de Compras</h3>
     <ul id="cart-items"></ul>
     <p><strong>Total:</strong> $<span id="cart-total">0</span></p>
-     <button id="checkout-btn" class="btn btn-success">Finalizar Pedido</button>
-   <button id="close-btn" class="btn btn-secondary">Cerrar</button>
+    <button id="checkout-btn" class="btn btn-success">Finalizar Pedido</button>
+    <button id="close-btn" class="btn btn-secondary">Cerrar</button>
 </div>
 
 <!-- Footer -->
@@ -207,7 +207,6 @@
 
 <script>
 $(document).ready(function(){
-    // Leer carrito desde localStorage o iniciar vacío
     let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
 
     function updateCart(){
@@ -223,12 +222,9 @@ $(document).ready(function(){
             );
         });
         $("#cart-total").text(total);
-
-        // Guardar siempre en localStorage
         localStorage.setItem('cartItems', JSON.stringify(cart));
     }
 
-    // Agregar productos
     $(".add-to-cart").click(function(){
         const name = $(this).data("name");
         const price = Number($(this).data("price"));
@@ -236,80 +232,30 @@ $(document).ready(function(){
         updateCart();
     });
 
-    // Eliminar productos
     $("#cart-items").on("click",".remove-item",function(){
         const index = $(this).data("index");
         cart.splice(index,1);
         updateCart();
     });
 
-    // Abrir/cerrar panel
     $("#open-cart").click(()=> $("#cart-panel").addClass("open"));
-   $("#close-btn").click(() => $("#cart-panel").removeClass("open")); // ✅ correcto
+    $("#close-btn").click(()=> $("#cart-panel").removeClass("open"));
 
-
-    // Finalizar pedido
     $("#checkout-btn").click(()=>{
         localStorage.setItem('cartItems', JSON.stringify(cart));
         localStorage.setItem('cartTotal', cart.reduce((sum,item)=>sum+item.price,0));
         window.location.href="checkout.html";
     });
 
-    // Mostrar carrito al cargar la página
     updateCart();
 });
-    
 </script>
-                        
+
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
-                        <!-- Firebase: Sesión de usuario -->
-
-</script>
-<script src="auth.js"></script>
-
-                        <script>
-  // Asegúrate de que Auth0 esté inicializado antes
-  let auth0 = null;
-
- async function initAuth0() {
-  auth0 = await createAuth0Client({
-    domain: "dev-gczye7k6j72ulyuy.us.auth0.com",
-    client_id: "yQaeyckqoA1iahtw9LdBRApSJcfp6GED",
-    redirect_uri: window.location.origin
-  });
-
-  // ✅ Procesa el callback si viene con ?code=...&state=...
-  if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
-    try {
-      await auth0.handleRedirectCallback();
-      window.history.replaceState({}, document.title, "/"); // Limpia la URL
-    } catch (err) {
-      console.error("Error al manejar el callback:", err);
-    }
-  }
-
-  // ✅ Verifica si el usuario está autenticado
-  const isAuthenticated = await auth0.isAuthenticated();
-  if (isAuthenticated) {
-    const user = await auth0.getUser();
-    console.log("Usuario autenticado:", user);
-    // Puedes mostrar el perfil si quieres
-    const profileElement = document.createElement("pre");
-    profileElement.innerText = JSON.stringify(user, null, 2);
-    document.body.appendChild(profileElement);
-  }
-}
-
-  // Inicializa Auth0 al cargar la página
-  window.onload = initAuth0;
-</script>
-
-
 
 </body>
 </html>
-
 
 
 
