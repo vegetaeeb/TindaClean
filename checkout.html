@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulario de compra</title>
+  <title>Formulario y Boucher</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
@@ -21,18 +21,13 @@
       border-radius: 15px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       padding: 30px;
-      max-width: 1000px;
+      max-width: 1100px;
       width: 100%;
     }
 
-    .form-container {
-      padding: 20px;
-    }
-
-    h1 {
+    h1, h3 {
       text-align: center;
       color: #0d6efd;
-      margin-bottom: 25px;
     }
 
     .btn-custom {
@@ -49,7 +44,7 @@
     .cart-box {
       background-color: #f9fafb;
       border-radius: 10px;
-      padding: 20px;
+      padding: 25px;
       height: 100%;
       box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
     }
@@ -57,25 +52,35 @@
     .cart-item {
       display: flex;
       justify-content: space-between;
-      padding: 10px 0;
       border-bottom: 1px solid #ddd;
+      padding: 8px 0;
     }
 
-    .cart-empty {
-      text-align: center;
-      color: #888;
-      padding: 40px 0;
-      font-style: italic;
+    .ticket-container {
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 15px;
     }
   </style>
 </head>
 
 <body>
   <div class="checkout-container">
-    <div class="row">
+    <div class="row g-4">
       
-      <!-- 🧾 Formulario -->
-      <div class="col-md-6 form-container">
+      <!-- 🧾 Carrito / Boucher -->
+      <div class="col-md-6">
+        <div class="cart-box">
+          <h3>🧾 Boucher de compra</h3>
+          <div id="order-summary" class="my-3"></div>
+          <div id="ticket-container" class="ticket-container"></div>
+        </div>
+      </div>
+
+      <!-- 📧 Formulario EmailJS (sin tocar) -->
+      <div class="col-md-6">
         <h1>Formulario de compra</h1>
         <form id="form">
           <div class="mb-3">
@@ -107,18 +112,10 @@
         </form>
       </div>
 
-     
-<!-- Panel del carrito -->
-<div id="cart-panel" class="cart-panel">
-    <h3>Carrito de Compras</h3>
-    <ul id="cart-items"></ul>
-    <p><strong>Total:</strong> $<span id="cart-total">0</span></p>
-    <button id="checkout-btn" class="btn btn-success">Finalizar Pedido</button>
-   <button id="close-btn" class="btn btn-secondary">Cerrar</button>
+    </div>
+  </div>
 
-     
-
-  <!-- EmailJS -->
+  <!-- 📬 EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
     emailjs.init('V-hMWsxBw8_MPntU5'); // Tu Public Key
@@ -142,130 +139,46 @@
     });
   </script>
 
-h1>Finalizar Pedido</h1>
+  <!-- 🛒 Script del carrito / boucher -->
+  <script>
+  (function(){
+      // Simulamos un carrito guardado en localStorage
+      let cart = JSON.parse(localStorage.getItem('cartItems')) || [
+          {name:'Desinfectante Natural', price:2500},
+          {name:'Detergente Ecológico', price:3500},
+          {name:'Limpiavidrios', price:1800}
+      ];
+      let total = cart.reduce((sum,i)=>sum+i.price,0);
 
-<!-- Resumen del pedido antes del formulario -->
-<div id="order-summary" class="my-3"></div>
+      const orderHTML = `
+          <div style="padding:15px; background:#eef5ff; border-radius:8px;">
+              <h5>Resumen de su compra:</h5>
+              <ul style="list-style:none; padding:0;">
+                  ${cart.map(it=>`<li class="cart-item"><span>${it.name}</span><span>$${it.price}</span></li>`).join('')}
+              </ul>
+              <p class="text-end mt-2"><strong>Total:</strong> $${total}</p>
+              <div class="text-center mt-3">
+                <button id="btnTicket" class="btn btn-success w-100">Generar boucher</button>
+              </div>
+          </div>
+      `;
+      document.getElementById('order-summary').innerHTML = orderHTML;
 
-<form id="checkout-form">
-    <div class="mb-3">
-        <label for="name">Nombre:</label>
-        <input type="text" id="name" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label for="phone">Teléfono:</label>
-        <input type="text" id="phone" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label for="email">Email:</label>
-        <input type="email" id="email" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label for="address">Dirección:</label>
-        <input type="text" id="address" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label for="payment-method">Método de pago:</label>
-        <select id="payment-method" class="form-control">
-            <option value="cod">Efectivo</option>
-            <option value="transfer">Transferencia Bancaria</option>
-        </select>
-    </div>
-    <button type="submit" class="btn btn-success">Confirmar Pedido</button>
-</form>
-
-<div id="ticket-container" class="my-4"></div>
-
-<script>
-(function(){
-    // Carrito de ejemplo, normalmente lo traes de localStorage
-    let cart = JSON.parse(localStorage.getItem('cartItems')) || [
-        {name:'Sunglasses 1', price:50},
-        {name:'Sunglasses 2', price:60}
-    ];
-    let total = cart.reduce((sum,i)=>sum+i.price,0);
-    let orderConfirmed = false;
-
-    function nextOrderNumber(){
-        const key = 'lastOrderNumber';
-        let last = parseInt(localStorage.getItem(key),10) || 10019;
-        const next = last + 1;
-        localStorage.setItem(key, next);
-        return next;
-    }
-
-    // Mostrar resumen visual antes del formulario
-    const summaryHTML = `
-        <div style="padding:15px; border:1px solid #ccc; background:#f8f8f8;">
-            <h4>Resumen de su compra:</h4>
-            <ul>
-                ${cart.map(it=>`<li>${it.name} - $${it.price}</li>`).join('')}
-            </ul>
-            <p><strong>Total:</strong> $${total}</p>
-        </div>
-    `;
-    $('#order-summary').html(summaryHTML);
-
-    $('#checkout-form').on('submit', function(e){
-        e.preventDefault();
-        if(orderConfirmed){ alert('Pedido ya confirmado'); return; }
-
-        const name = $('#name').val();
-        const phone = $('#phone').val();
-        const email = $('#email').val();
-        const address = $('#address').val();
-        const paymentMethod = $('#payment-method').val();
-        const orderNum = nextOrderNumber();
-
-        // Crear ticket visual (boucher)
-        const ticketHTML = `
-            <div style="font-family:Arial; padding:20px; border:1px solid #333; width:350px;">
-                <h2 style="text-align:center;">Sungla Store</h2>
-                <p><strong>Pedido #:</strong> ${orderNum}</p>
-                <p><strong>Cliente:</strong> ${name}</p>
-                <p><strong>Tel:</strong> ${phone}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Dirección:</strong> ${address}</p>
-                <p><strong>Método de pago:</strong> ${paymentMethod==='cod'?'Efectivo':'Transferencia'}</p>
-                <h3>Productos:</h3>
-                <ul>
-                    ${cart.map(it=>`<li>${it.name} - $${it.price}</li>`).join('')}
-                </ul>
-                <p><strong>Total:</strong> $${total}</p>
-                <p style="font-size:0.85rem;">Gracias por su compra! Cobro al momento de entrega.</p>
-            </div>
-        `;
-        $('#ticket-container').html(ticketHTML);
-
-        // Botón para descargar PDF
-        const downloadBtn = $('<button class="btn btn-primary my-2">Descargar ticket PDF</button>');
-        downloadBtn.on('click', function(){
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            doc.html(document.querySelector('#ticket-container'), {
-                callback: function(doc){ doc.save(`pedido_${orderNum}.pdf`); },
-                x:10, y:10, width:180
-            });
-        });
-
-        // Botón regresar al inicio
-        const homeBtn = $('<button class="btn btn-secondary my-2 ml-2">Regresar al inicio</button>');
-        homeBtn.on('click', function(){ window.location.href = "index.html"; });
-
-        $('#ticket-container').append(downloadBtn).append(homeBtn);
-
-        orderConfirmed = true;
-        $('#checkout-form button[type=submit]').prop('disabled',true);
-        localStorage.removeItem('cartItems');
-        localStorage.removeItem('cartTotal');
-    });
-})();
-</script>
-
-</body>
-</html>
-
-    
+      document.getElementById('btnTicket').addEventListener('click', ()=>{
+          const orderNum = Math.floor(Math.random()*100000);
+          const ticketHTML = `
+              <h4 class="text-center mb-3">Sungla Store</h4>
+              <p><strong>Pedido #:</strong> ${orderNum}</p>
+              <ul style="list-style:none; padding:0;">
+                  ${cart.map(it=>`<li>${it.name} - $${it.price}</li>`).join('')}
+              </ul>
+              <p><strong>Total:</strong> $${total}</p>
+              <p class="mt-3 text-center" style="font-size:0.85rem;">Gracias por su compra. Pago al recibir.</p>
+          `;
+          document.getElementById('ticket-container').innerHTML = ticketHTML;
+      });
+  })();
+  </script>
 </body>
 </html>
 
