@@ -143,15 +143,16 @@
   let total = carrito.reduce((sum, p) => sum + (p.price || 0), 0);
 
     // 📨 Crear objeto con los datos del formulario + detalle del carrito
-    const formData = {
-      name: form.name.value,
-      last: form.last.value,
-      phone: form.phone.value,
-      email: form.email.value,
-      message: form.message.value,
-      carrito_detalle: detalleCarrito,
-      total: total // ✅ enviar total al correo
-    };
+  const formData = {
+  name: form.name.value,
+  last: form.last.value,
+  phone: form.phone.value,
+  email: form.email.value,
+  message: form.message.value,
+  carrito_detalle: detalleCarrito, // ← COMA AQUÍ
+  total: total
+};
+
 
     // 🔧 ID de servicio y plantilla de EmailJS
     const serviceID = 'default_service';
@@ -214,6 +215,7 @@
   </script>
 </body>
 </html>
+
 
 
 
