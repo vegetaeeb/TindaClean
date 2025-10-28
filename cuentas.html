@@ -1,70 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de compra</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-    <div class="container"
+  <div class="container">
     <h1>Formulario de compra</h1>
-
     <form id="form">
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Nombre</label>
-    <input type="text" class="form-control" placeholder="nombre" name="">
+      <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" class="form-control" placeholder="Nombre" name="name">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Apellido</label>
+        <input type="text" class="form-control" placeholder="Apellido" name="last">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Teléfono</label>
+        <input type="number" class="form-control" placeholder="Teléfono" name="phone">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Correo electrónico</label>
+        <input type="email" class="form-control" placeholder="Email" name="email">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Mensaje</label>
+        <textarea class="form-control" placeholder="Mensaje" name="message"></textarea>
+      </div>
+      <input type="submit" class="btn btn-success" id="button" value="Enviar mensaje">
+    </form>
   </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Apellido</label>
-    <input type="text" class="form-control" placeholder="Apellido" name="last">
-    </div>
-    <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Telefono</label>
-    <input type="number" class="form-control" placeholder="Telefono" name="phone">
-    </div>
-    <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Correo electonico</label>
-    <input type="text" class="form-control" placeholder="Mail" name="email" >
-    </div>
-    <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Apellidos</label>
-    <textarea type="text" class="form-control" placeholder="Mensaje" name="menssage"></textarea>
-    </div>
-    <input type="submit" class="btn btn-success" id="button" value="enviar mensaje" >
-</form>
 
-<script type="text/javascript"
-  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    emailjs.init('V-hMWsxBw8_MPntU5');
 
-<script type="text/javascript">
-  emailjs.init('V-hMWsxBw8_MPntU5')
-</script>
+    const btn = document.getElementById('button');
+    document.getElementById('form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      btn.value = 'Enviando...';
 
+      const serviceID = 'service_4o5h4ku';
+      const templateID = 'template_hqqxl2k';
 
-</div>
-    
-</body>
-<script>const btn = document.getElementById('button');
-
-document.getElementById('form')
- .addEventListener('submit', function(event) {
-   event.preventDefault();
-
-   btn.value = 'Sending...';
-
-   const serviceID = 'service_4o5h4ku';
-   const templateID = 'template_hqqxl2k';
-
-   emailjs.sendForm(serviceID, templateID, this)
-    .then(() => {
-      btn.value = 'ENVIAR MENSAJE';
-      alert('Mensaje enviado correctamente!');
-    }, (err) => {
-      btn.value = 'ENVIAR MENSAJE';
-      alert(JSON.stringify(err));
+      emailjs.sendForm(serviceID, templateID, this)
+        .then(() => {
+          btn.value = 'Enviar mensaje';
+          alert('Mensaje enviado correctamente!');
+        }, (err) => {
+          btn.value = 'Enviar mensaje';
+          alert(JSON.stringify(err));
+        });
     });
-});
-
+  </script>
+</body>
 </html>
+
+
