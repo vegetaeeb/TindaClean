@@ -152,6 +152,65 @@
         });
     });
   </script>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script>
+$(document).ready(function(){
+    // Leer carrito desde localStorage o iniciar vacío
+    let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+    function updateCart(){
+        $("#cart-count").text(cart.length);
+        $("#cart-items").empty();
+        let total = 0;
+        cart.forEach((item,index)=>{
+            total += item.price;
+            $("#cart-items").append(
+                `<li>${item.name} - $${item.price} 
+                    <span class="remove-item" data-index="${index}">×</span>
+                </li>`
+            );
+        });
+        $("#cart-total").text(total);
+
+        // Guardar siempre en localStorage
+        localStorage.setItem('cartItems', JSON.stringify(cart));
+    }
+
+    // Agregar productos
+    $(".add-to-cart").click(function(){
+        const name = $(this).data("name");
+        const price = Number($(this).data("price"));
+        cart.push({name, price});
+        updateCart();
+    });
+
+    // Eliminar productos
+    $("#cart-items").on("click",".remove-item",function(){
+        const index = $(this).data("index");
+        cart.splice(index,1);
+        updateCart();
+    });
+
+    // Abrir/cerrar panel
+    $("#open-cart").click(()=> $("#cart-panel").addClass("open"));
+    $("#close-btn").click(() => $("#cart-panel").removeClass("open")); // ✅ correcto
+
+    // Finalizar pedido
+    $("#checkout-btn").click(()=>{
+        localStorage.setItem('cartItems', JSON.stringify(cart));
+        localStorage.setItem('cartTotal', cart.reduce((sum,item)=>sum+item.price,0));
+        window.location.href="checkout.html";
+    });
+
+    // Mostrar carrito al cargar la página
+    updateCart();
+});
+</script>
+    
 </body>
 </html>
+
 
