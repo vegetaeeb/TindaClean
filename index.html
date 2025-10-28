@@ -268,9 +268,31 @@ $(document).ready(function(){
 </script>
 <script src="auth.js"></script>
 
+                        <script>
+  // Asegúrate de que Auth0 esté inicializado antes
+  let auth0 = null;
+
+  async function initAuth0() {
+    auth0 = await createAuth0Client({
+      domain: "dev-gczye7k6j72ulyuy.us.auth0.com",
+      client_id: "yQaeyckqoA1iahtw9LdBRApSJcfp6GED",
+      redirect_uri: window.location.origin
+    });
+  }
+
+  async function loginWithAuth0() {
+    await auth0.loginWithRedirect();
+  }
+
+  // Inicializa Auth0 al cargar la página
+  window.onload = initAuth0;
+</script>
+
+
 
 </body>
 </html>
+
 
 
 
