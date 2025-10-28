@@ -68,21 +68,22 @@
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse" id="navbarsExample04">
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item active"><a class="nav-link" href="index.html">Inicio</a></li>
-                                <li class="nav-item"><a class="nav-link" href="glasses.html">Productos</a></li>
-                                <li class="nav-item"><a class="nav-link" href="contact.html">Contactanos</a></li>
-                           </li>
-                                <!-- Cuenta (sin Auth0) -->
-                               
+                    <div class="collapse navbar-collapse" id="navbarsExample04">
+    <ul class="navbar-nav mr-auto">
+    <li class="nav-item active"><a class="nav-link" href="index.html">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="glasses.html">Productos</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contactanos</a></li>
 
-                                <!-- Carrito -->
-                              <li class="nav-item sea_icon">
-        <a class="nav-link" href="#" id="open-cart">
-            <i class="fa fa-shopping-cart"></i> <span id="cart-count">0</span>
-        </a>
-    </li>
+                <!-- Dropdown Login -->
+       <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarLogin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Cuenta
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarLogin">
+                <a class="dropdown-item" href="login.html">Ingresar</a>
+                <a class="dropdown-item" href="register.html">Registrar</a>
+            </div>
+        </li>
 
                                     </a>
                                 </li>
@@ -284,6 +285,7 @@ $(document).ready(function(){
 </script>
 </body>
 </html>
+
 
 
 
