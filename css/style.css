@@ -868,5 +868,19 @@ footer {
     margin-top: auto; /* Empuja el footer hacia abajo */
 }
 
+/* Contador flotante en móvil */
+@media (max-width: 768px) {
+  #cart-count {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: #0d6efd;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 50%;
+    font-weight: bold;
+    z-index: 9999;
+  }
+}
 
 
