@@ -130,6 +130,40 @@
     });
 })();
 </script>
+<!-- Formulario o botón de compra -->
+<form id="formCompra">
+  <input type="text" name="nombre" placeholder="Tu nombre" required>
+  <input type="email" name="email" placeholder="Tu correo" required>
+  <button type="submit" id="btnComprar">Finalizar compra</button>
+</form>
 
+<!-- Script EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  (function(){
+    emailjs.init("TU_PUBLIC_KEY"); // lo copias desde tu panel de EmailJS
+  })();
+
+  document.getElementById("formCompra").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const nombre = this.nombre.value;
+    const email = this.email.value;
+
+    // 🔹 Enviar correo por EmailJS
+    emailjs.send("service_4c4o0vs", "template_8patfxt", {
+      nombre: nombre,
+      email: email
+    }).then(function() {
+      alert("✅ Compra realizada. Se envió un correo de confirmación.");
+
+      // 🔹 Descargar PDF automáticamente
+      window.open("boleta.pdf", "_blank");
+
+    }, function(error) {
+      alert("❌ Error al enviar el correo: " + JSON.stringify(error));
+    });
+  });
+</script>
 </body>
 </html>
