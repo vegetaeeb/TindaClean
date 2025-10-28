@@ -63,7 +63,7 @@
       border-radius: 10px;
       margin-top: 15px;
     }
-    /* 🔙 Estilo del botón regresar */
+  /* 🔙 Estilo del botón regresar */
 .btn-regresar {
   margin-top: 25px;
   background-color: #6c757d;
@@ -78,12 +78,23 @@
 .btn-regresar:hover {
   background-color: #5a6268;
 }
-  </style>
-</head>
 
-<body>
-  <div class="checkout-container">
-    <div class="row g-4">
+/* 📱 Modo responsive */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .checkout-container {
+    padding: 20px;
+  }
+
+  .btn-regresar {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
       
       <!-- 🧾 Carrito / Boucher -->
       <div class="col-md-6">
@@ -257,6 +268,7 @@
 </div> <!-- cierre de .checkout-container -->
 </body>
 </html>
+
 
 
 
