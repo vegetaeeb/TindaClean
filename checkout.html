@@ -115,29 +115,54 @@
     </div>
   </div>
 
-  <!-- 📬 EmailJS -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>
-    emailjs.init('V-hMWsxBw8_MPntU5'); // Tu Public Key
+ <!-- 📬 EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  emailjs.init('V-hMWsxBw8_MPntU5'); // Tu Public Key
 
-    const btn = document.getElementById('button');
-    document.getElementById('form').addEventListener('submit', function(event) {
-      event.preventDefault();
-      btn.value = 'Enviando...';
-      const serviceID = 'default_service';
-      const templateID = 'template_hqqxl2k';
+  const btn = document.getElementById('button');
+  const form = document.getElementById('form');
 
-      emailjs.sendForm(serviceID, templateID, this)
-        .then(() => {
-          btn.value = 'Enviar mensaje';
-          alert('✅ Correo enviado correctamente');
-          this.reset();
-        }, (err) => {
-          btn.value = 'Enviar mensaje';
-          alert('❌ Error al enviar: ' + JSON.stringify(err));
-        });
-    });
-  </script>
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    btn.value = 'Enviando...';
+
+    // 🛒 OBTENER DATOS DEL CARRITO (de localStorage o variable global)
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    // 🔹 Generar texto con el detalle del carrito
+    let detalleCarrito = carrito.length > 0
+      ? carrito.map((p, i) => `${i + 1}. ${p.nombre} - Cantidad: ${p.cantidad} - Precio: $${p.precio}`).join('\n')
+      : 'Sin productos en el carrito.';
+
+    // 📨 Crear objeto con los datos del formulario + detalle del carrito
+    const formData = {
+      name: form.name.value,
+      last: form.last.value,
+      phone: form.phone.value,
+      email: form.email.value,
+      message: form.message.value,
+      carrito_detalle: detalleCarrito
+    };
+
+    // 🔧 ID de servicio y plantilla de EmailJS
+    const serviceID = 'default_service';
+    const templateID = 'template_hqqxl2k';
+
+    // ✉️ Enviar los datos
+    emailjs.send(serviceID, templateID, formData)
+      .then(() => {
+        btn.value = 'Enviar mensaje';
+        alert('✅ Correo enviado correctamente con el detalle del carrito');
+        form.reset();
+      })
+      .catch((err) => {
+        btn.value = 'Enviar mensaje';
+        alert('❌ Error al enviar: ' + JSON.stringify(err));
+      });
+  });
+</script>
+
 
   <!-- 🛒 Script del carrito / boucher -->
   <script>
@@ -181,6 +206,7 @@
   </script>
 </body>
 </html>
+
 
 
 
