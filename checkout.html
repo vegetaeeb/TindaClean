@@ -139,10 +139,18 @@
     const form = document.getElementById('form');
 
     form.addEventListener('submit', function(event) {
-      event.preventDefault();
-      btn.value = 'Enviando...';
+  event.preventDefault();
 
-      let carrito = JSON.parse(localStorage.getItem('cartItems')) || [];
+  // 🔹 Obtener carrito
+  let carrito = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+  // 🔹 Verificar si el carrito está vacío
+  if (carrito.length === 0) {
+    alert('⚠️ No puedes enviar el formulario sin productos en el carrito.');
+    return; // Detiene el envío
+  }
+
+  btn.value = 'Enviando...';
 
       let detalleCarrito = carrito.length > 0
         ? carrito.map((p, i) => `${i + 1}. ${p.name} - $${p.price}`).join('\n')
@@ -246,6 +254,7 @@
  <button class="btn-regresar" onclick="volverInicio()">⬅ Regresar al inicio</button>
 </body>
 </html>
+
 
 
 
