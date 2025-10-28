@@ -9,56 +9,57 @@
 <body>
   <div class="container">
     <h1>Formulario de compra</h1>
-    <form id="form">
-      <div class="mb-3">
-        <label class="form-label">Nombre</label>
-        <input type="text" class="form-control" placeholder="Nombre" name="name">
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Apellido</label>
-        <input type="text" class="form-control" placeholder="Apellido" name="last">
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Teléfono</label>
-        <input type="number" class="form-control" placeholder="Teléfono" name="phone">
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Correo electrónico</label>
-        <input type="email" class="form-control" placeholder="Email" name="email">
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Mensaje</label>
-        <textarea class="form-control" placeholder="Mensaje" name="message"></textarea>
-      </div>
-      <input type="submit" class="btn btn-success" id="button" value="Enviar mensaje">
-    </form>
+   <form id="form">
+  <div class="field">
+    <label for="name">name</label>
+    <input type="text" name="name" id="name">
+  </div>
+  <div class="field">
+    <label for="last">last</label>
+    <input type="text" name="last" id="last">
+  </div>
+  <div class="field">
+    <label for="phone">phone</label>
+    <input type="text" name="phone" id="phone">
+  </div>
+  <div class="field">
+    <label for="email">email</label>
+    <input type="text" name="email" id="email">
+  </div>
+
+  <input type="submit" id="button" value="Send Email" >
+</form>
   </div>
 
   <!-- EmailJS -->
 <script type="text/javascript"
   src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
+<script type="text/javascript">
+  emailjs.init('V-hMWsxBw8_MPntU5')
+</script>
+
 <script>
   const btn = document.getElementById('button');
 
-  document.getElementById('form')
-    .addEventListener('submit', function(event) {
-      event.preventDefault();
+document.getElementById('form')
+ .addEventListener('submit', function(event) {
+   event.preventDefault();
 
-      btn.value = 'Sending...';
+   btn.value = 'Sending...';
 
-      const serviceID = 'default_service';
-      const templateID = 'template_hqqxl2k';
+   const serviceID = 'default_service';
+   const templateID = 'template_hqqxl2k';
 
-      emailjs.sendForm(serviceID, templateID, this)
-        .then(() => {
-          btn.value = 'Send Email';
-          alert('Sent!');
-        }, (err) => {
-          btn.value = 'Send Email';
-          alert(JSON.stringify(err));
-        });
+   emailjs.sendForm(serviceID, templateID, this)
+    .then(() => {
+      btn.value = 'Send Email';
+      alert('Sent!');
+    }, (err) => {
+      btn.value = 'Send Email';
+      alert(JSON.stringify(err));
     });
+});
 </script>
 
 
@@ -66,6 +67,7 @@
 </body>
   
 </html>
+
 
 
 
