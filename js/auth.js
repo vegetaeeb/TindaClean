@@ -4,25 +4,18 @@ window.onload = async () => {
     client_id: "yQaeyckqoA1iahtw9LdBRApSJcfp6GED",
   });
 
-  const loginButton = document.getElementById("login");
-  const logoutButton = document.getElementById("logout");
-  const profileDiv = document.getElementById("profile");
-
-  loginButton.addEventListener("click", () => auth0.loginWithRedirect());
-  logoutButton.addEventListener("click", () => auth0.logout({ returnTo: window.location.origin }));
-
   const query = window.location.search;
   if (query.includes("code=") && query.includes("state=")) {
     await auth0.handleRedirectCallback();
-    window.history.replaceState({}, document.title, "/");
+    window.history.replaceState({}, document.title, "/TClean/");
   }
 
   const isAuthenticated = await auth0.isAuthenticated();
   if (isAuthenticated) {
     const user = await auth0.getUser();
-    profileDiv.innerHTML = `<p>Hola, ${user.name}</p>`;
-    loginButton.style.display = "none";
-    logoutButton.style.display = "inline-block";
+    document.getElementById("user-info").innerHTML = `Bienvenido, ${user.name}`;
+    document.getElementById("login").style.display = "none";
+    document.getElementById("btnLogout").style.display = "inline-block";
   }
 };
 
