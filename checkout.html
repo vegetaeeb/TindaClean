@@ -132,7 +132,7 @@
     btn.value = 'Enviando...';
 
     // 🛒 OBTENER DATOS DEL CARRITO (de localStorage o variable global)
-    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    let carrito = JSON.parse(localStorage.getItem('cartItems')) || [];
 
     // 🔹 Generar texto con el detalle del carrito
     let detalleCarrito = carrito.length > 0
@@ -210,6 +210,7 @@
   </script>
 </body>
 </html>
+
 
 
 
