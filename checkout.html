@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout - TClean</title>
 
-  <!-- Bootstrap y estilos -->
+  <!-- Estilos -->
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
@@ -79,7 +79,6 @@
 
     .checkout-container input:focus,
     .checkout-container textarea:focus {
-      background-color: #fff;
       border: 1px solid #0d6efd;
       box-shadow: 0 0 5px rgba(13,110,253,0.5);
       outline: none;
@@ -167,7 +166,7 @@
     </div>
   </header>
 
-  <!-- CHECKOUT FORM Y BOUCHER -->
+  <!-- CHECKOUT -->
   <div class="checkout-container">
     <div class="row g-4">
       <!-- Resumen y Boucher -->
@@ -224,7 +223,7 @@
     </div>
   </footer>
 
-  <!-- SIDEBAR CARRITO -->
+  <!-- SIDEBAR -->
   <div id="cart-sidebar" class="cart-sidebar">
     <div class="cart-header">
       <h5>Mi carrito</h5>
@@ -260,12 +259,9 @@
         return;
       }
 
-      const tieneNumero = numeroPedido !== null;
-      const pedidoHTML = tieneNumero
+      const pedidoHTML = numeroPedido
         ? `<p><strong>Pedido #:</strong> ${numeroPedido}</p>`
-        : `<p style="color:#999; font-style:italic; font-size:0.9rem;">
-             (El número de pedido se generará al enviar)
-           </p>`;
+        : `<p style="color:#999; font-style:italic; font-size:0.9rem;">(El número se generará al enviar)</p>`;
 
       const ticketHTML = `
         <h4 class="text-center mb-3">TClean Store</h4>
@@ -274,9 +270,7 @@
           ${cart.map((it, i) => `<li>${i + 1}. ${it.name} - $${it.price}</li>`).join('')}
         </ul>
         <p><strong>Total:</strong> $${total}</p>
-        <p class="mt-3 text-center" style="font-size:0.85rem; color:#666;">
-          Gracias por su compra. Pago al recibir.
-        </p>
+        <p class="mt-3 text-center" style="font-size:0.85rem; color:#666;">Gracias por su compra. Pago al recibir.</p>
       `;
       document.getElementById('ticket-container').innerHTML = ticketHTML;
     }
@@ -291,22 +285,17 @@
       y += 15;
       doc.setFontSize(12);
       doc.text(`Pedido #: ${numeroPedido}`, 20, y); y += 10;
-      cart.forEach((item, i) => {
-        doc.text(`${i + 1}. ${item.name} - $${item.price}`, 20, y);
-        y += 10;
-      });
+      cart.forEach((item, i) => { doc.text(`${i + 1}. ${item.name} - $${item.price}`, 20, y); y += 10; });
       doc.text(`Total: $${total}`, 20, y); y += 15;
       doc.setFontSize(10);
       doc.text('Gracias por su compra. Pago al recibir.', 105, y, { align: 'center' });
       doc.save(`Boucher_Pedido_${numeroPedido}.pdf`);
     }
 
-    // Cargar resumen y boucher solo si hay productos
+    // Cargar resumen al iniciar
     (function() {
       const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
       const total = cart.reduce((sum, i) => sum + (i.price || 0), 0);
-
-      // Actualizar contador
       document.getElementById('cart-count').textContent = cart.length;
 
       if (cart.length === 0) {
@@ -328,18 +317,14 @@
           </ul>
           <p class="text-end mt-2"><strong>Total:</strong> $${total}</p>
           <div class="text-center mt-3">
-            <button id="btnTicket" class="btn btn-success w-100" disabled>
-              Generar PDF (después de enviar)
+            <button id="btnTicket" class="btn btn-secondary w-100" disabled>
+              Esperando envío del pedido...
             </button>
           </div>
         </div>
       `;
       document.getElementById('order-summary').innerHTML = orderHTML;
       mostrarBoucherEnPantalla(cart, total);
-
-      document.getElementById('btnTicket').addEventListener('click', () => {
-        alert('El PDF se generará después de enviar el pedido.');
-      });
     })();
 
     // Enviar formulario
@@ -351,7 +336,7 @@
 
       const carrito = JSON.parse(localStorage.getItem('cartItems')) || [];
       if (carrito.length === 0) {
-        alert('No puedes enviar el formulario sin productos.');
+        alert('No puedes enviar sin productos en el carrito.');
         return;
       }
 
@@ -376,15 +361,19 @@
       emailjs.send('default_service', 'template_hqqxl2k', formData)
         .then(() => {
           btn.value = 'Solicitar pedido';
-          alert('¡Pedido enviado! Tu número es: ' + numeroPedido);
+          alert('¡Pedido enviado con éxito! Tu número es: ' + numeroPedido);
           form.reset();
           localStorage.removeItem('cartItems');
           document.getElementById('cart-count').textContent = '0';
 
+          // Mostrar boucher con número
           mostrarBoucherEnPantalla(carrito, total, numeroPedido);
 
+          // Activar botón PDF
           const btnTicket = document.getElementById('btnTicket');
           btnTicket.disabled = false;
+          btnTicket.classList.remove('btn-secondary');
+          btnTicket.classList.add('btn-success');
           btnTicket.textContent = 'Descargar boucher PDF';
           btnTicket.onclick = () => generarBoucher(carrito, total, numeroPedido);
         })
@@ -428,8 +417,8 @@
             const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
             cart.splice(idx, 1);
             localStorage.setItem('cartItems', JSON.stringify(cart));
-            updateCart-sidebar();
-            location.reload();
+            updateCartSidebar();
+            location.reload(); // Actualiza resumen
           });
         });
       }
@@ -438,6 +427,7 @@
       if (closeCartBtn) closeCartBtn.addEventListener('click', () => cartSidebar.classList.remove('open'));
       if (continueBtn) continueBtn.addEventListener('click', () => cartSidebar.classList.remove('open'));
 
+      // Contador inicial
       const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
       document.getElementById('cart-count').textContent = cart.length;
     });
