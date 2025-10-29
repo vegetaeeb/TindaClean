@@ -2,9 +2,16 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>Contáctanos - Sungla</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="icon" href="images/fevicon.png" type="image/gif" />
+  <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
   <style>
     body {
       background-color: #f9f9f9;
@@ -21,40 +28,110 @@
     }
   </style>
 </head>
-<body>
-  <div class="container py-5">
-    <div class="contact-card">
-      <h1 class="mb-4">Contáctanos</h1>
-      <p>
-        <strong>Sungla</strong> es un emprendimiento dedicado a ofrecer productos de alta calidad, con un enfoque moderno y funcional. Nos especializamos en artículos que combinan estilo, durabilidad y buen precio, pensados para personas que valoran el diseño y la experiencia.
-      </p>
-      <p>
-        Cada producto que ofrecemos ha sido cuidadosamente seleccionado para garantizar satisfacción y confianza. Creemos en el trato directo, en escuchar a nuestros clientes y en mejorar constantemente.
-      </p>
+<body class="main-layout position_head">
 
-      <hr>
-
-      <h4 class="mt-4">Datos de contacto</h4>
-      <ul class="list-unstyled">
-        <li><strong>Dirección:</strong> Av. Emprendedores 123, Santiago, Chile</li>
-        <li><strong>Teléfono:</strong> +56 9 1234 5678</li>
-        <li><strong>Email:</strong> <a href="mailto:contacto@sungla.com">contacto@sungla.com</a></li>
-        <li><strong>Horario de atención:</strong> Lunes a viernes, 9:00 a 18:00</li>
-      </ul>
-
-      <hr>
-
-      <h4 class="mt-4">¿Tienes dudas o sugerencias?</h4>
-      <p>
-        Escríbenos al correo indicado o visítanos en nuestras redes sociales. También puedes contactarnos directamente por WhatsApp:
-      </p>
-
-      <!-- Botón WhatsApp -->
-      <a href="https://wa.me/56912345678?text=Hola%20Sungla,%20quiero%20más%20información%20sobre%20sus%20productos" target="_blank" class="btn btn-success whatsapp-btn">
-        <img src="https://img.icons8.com/color/24/000000/whatsapp.png" alt="WhatsApp">
-        Escríbenos por WhatsApp
-      </a>
+<!-- Header con navbar -->
+<header>
+  <div class="header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+          <div class="full">
+            <div class="center-desk">
+              <div class="logo">
+                <a href="index.html"><img src="images/logo.png" alt="Logo Sungla" /></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+          <nav class="navigation navbar navbar-expand-md navbar-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarsExample04">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" href="glasses.html">Productos</a></li>
+                <li class="nav-item active"><a class="nav-link" href="contact.html">Contáctanos</a></li>
+                <li class="nav-item"><a class="nav-link" href="checkout.html">Mi carrito</a></li>
+                <li class="nav-item sea_icon">
+                  <a class="nav-link" href="#" id="open-cart">
+                    <i class="fa fa-shopping-cart"></i> <span id="cart-count">0</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
     </div>
   </div>
+</header>
+
+<!-- Sección Contáctanos -->
+<div class="container py-5">
+  <div class="contact-card">
+    <h1 class="mb-4">Contáctanos</h1>
+    <p>
+      <strong>Sungla</strong> es un emprendimiento dedicado a ofrecer productos de alta calidad, con un enfoque moderno y funcional. Nos especializamos en artículos que combinan estilo, durabilidad y buen precio, pensados para personas que valoran el diseño y la experiencia.
+    </p>
+    <p>
+      Cada producto que ofrecemos ha sido cuidadosamente seleccionado para garantizar satisfacción y confianza. Creemos en el trato directo, en escuchar a nuestros clientes y en mejorar constantemente.
+    </p>
+
+    <hr>
+
+    <h4 class="mt-4">Datos de contacto</h4>
+    <ul class="list-unstyled">
+      <li><strong>Dirección:</strong> Av. Emprendedores 123, Santiago, Chile</li>
+      <li><strong>Teléfono:</strong> +56 9 1234 5678</li>
+      <li><strong>Email:</strong> <a href="mailto:contacto@sungla.com">contacto@sungla.com</a></li>
+      <li><strong>Horario de atención:</strong> Lunes a viernes, 9:00 a 18:00</li>
+    </ul>
+
+    <hr>
+
+    <h4 class="mt-4">¿Tienes dudas o sugerencias?</h4>
+    <p>
+      Escríbenos al correo indicado o visítanos en nuestras redes sociales. También puedes contactarnos directamente por WhatsApp:
+    </p>
+
+    <!-- Botón WhatsApp -->
+    <a href="https://wa.me/56920544116?text=Hola%20Erick,%20quiero%20más%20información%20sobre%20sus%20productos" target="_blank" class="btn btn-success whatsapp-btn">
+      <img src="https://img.icons8.com/color/24/000000/whatsapp.png" alt="WhatsApp">
+      Escríbenos por WhatsApp
+    </a>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <ul class="location_icon">
+            <li><a href="#"><i class="fa fa-map-marker"></i></a><br> Av. Emprendedores 123</li>
+            <li><a href="#"><i class="fa fa-phone"></i></a><br> +56 9 20544116</li>
+            <li><a href="#"><i class="fa fa-envelope"></i></a><br> eelizondo@vtr.net</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <p>© 2025 Todos los derechos reservados. Diseñado Erick Elizondo</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
+
+
