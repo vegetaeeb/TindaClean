@@ -75,6 +75,29 @@
   background-color: #084298 !important;
   color: #fff !important;
 }
+    /* 🔹 Ajuste del header para checkout */
+body {
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    min-height: 100vh;
+    padding: 0; /* quitar padding que empuja todo */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hacer que el header quede arriba pegado */
+.checkout-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Para que el contenido no quede debajo del header */
+.checkout-container {
+    margin-top: 120px; /* ajustar según altura del header */
+}
   </style>
 </head>
 
