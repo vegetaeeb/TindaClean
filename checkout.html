@@ -328,7 +328,7 @@ body {
       let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
       let total = cart.reduce((sum,i)=>sum+i.price,0);
       let ultimoPedido = parseInt(localStorage.getItem('ultimoPedido')) || 0;
-      let numeroPedido = ultimoPedido + 1;
+      let numeroPedido = ultimoPedido + 7;
 
       const orderHTML = `
         <div style="padding:15px; background:#eef5ff; border-radius:8px;">
