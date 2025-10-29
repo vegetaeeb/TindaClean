@@ -484,5 +484,17 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCartSidebar();
 });
 </script>
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const cartSidebar = document.getElementById('cart-sidebar');
+  const continueBtn = document.getElementById('continue-cart');
+
+  if (continueBtn) {
+    continueBtn.addEventListener('click', () => {
+      cartSidebar.classList.remove('open'); // 🔹 Cierra el carrito
+    });
+  }
+});
+</script>
 </body>
 </html>
