@@ -223,10 +223,7 @@ body {
       </div>
     </div>
 
-    <div class="text-center">
-      <button class="btn-regresar" onclick="volverInicio()">⬅ Regresar al inicio</button>
-    </div>
-  </div>
+ 
 
   <!-- 🔹 FOOTER (igual que index.html) -->
   <footer class="mt-5">
@@ -343,10 +340,7 @@ body {
       document.getElementById('btnTicket').addEventListener('click', () => { generarBoucher(cart, total, numeroPedido); });
     })();
 
-    function volverInicio() {
-      localStorage.removeItem('cartItems');
-      window.location.href = 'index.html';
-    }
+    
   </script>
 <script>
   // Actualiza el contador del carrito al cargar la página
