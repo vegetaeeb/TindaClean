@@ -1,302 +1,501 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - Sungla</title> <!-- Bootstrap y estilos generales -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-    <style>
-        /* Mantener los estilos internos de checkout */
-        body {
-            min-height: 100vh;
-            background: #f5f5f5;
-            padding: 40px 10px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Sungla</title>
 
-        .checkout-container {
-            background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            max-width: 1100px;
-            width: 100%;
-            margin: 80px auto;
-            /* espacio debajo del header */
-        }
+  <!-- Bootstrap y estilos generales -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 
-        h1,
-        h3 {
-            text-align: center;
-            color: #0d6efd;
-        }
+  <style>
+    /* Mantener los estilos internos de checkout */
+    body {
+      min-height: 100vh;
+      background: #f5f5f5;
+      padding: 40px 10px;
+    }
+    .checkout-container {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      padding: 30px;
+      max-width: 1100px;
+      width: 100%;
+      margin: 80px auto; /* espacio debajo del header */
+    }
+    h1, h3 { text-align: center; color: #0d6efd; }
+    .btn-custom { background-color: #0d6efd; color: white; font-weight: 600; width: 100%; }
+    .btn-custom:hover { background-color: #084298; }
+    .cart-box { background-color: #f9fafb; border-radius: 10px; padding: 25px; height: 100%; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); }
+    .cart-item { display: flex; justify-content: space-between; border-bottom: 1px solid #ddd; padding: 8px 0; }
+    .ticket-container { background: #fff; border: 1px solid #ccc; padding: 20px; border-radius: 10px; margin-top: 15px; }
+    .btn-regresar { margin-top: 25px; background-color: #6c757d; color: white; font-weight: 600; border: none; padding: 10px 25px; border-radius: 8px; transition: all 0.3s ease; }
+    .btn-regresar:hover { background-color: #5a6268; }
 
-        .btn-custom {
-            background-color: #0d6efd;
-            color: white;
-            font-weight: 600;
-            width: 100%;
-        }
+    @media (max-width: 768px) {
+      body { padding: 20px; }
+      .checkout-container { padding: 20px; }
+      .btn-regresar { width: 100%; margin-top: 20px; }
+    }
+    /* 🔹 Estilos específicos para el formulario de checkout */
+.checkout-container input,
+.checkout-container textarea {
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  color: #495057;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
 
-        .btn-custom:hover {
-            background-color: #084298;
-        }
+.checkout-container input:focus,
+.checkout-container textarea:focus {
+  background-color: #fff;
+  border: 1px solid #0d6efd;
+  box-shadow: 0 0 5px rgba(13,110,253,0.5);
+  outline: none;
+  color: #495057;
+}
 
-        .cart-box {
-            background-color: #f9fafb;
-            border-radius: 10px;
-            padding: 25px;
-            height: 100%;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
-        }
+.checkout-container #button {
+  display: block;
+  background-color: #0d6efd !important;
+  color: #fff !important;
+  border: none;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid #ddd;
-            padding: 8px 0;
-        }
+.checkout-container #button:hover {
+  background-color: #084298 !important;
+  color: #fff !important;
+}
+    /* 🔹 Ajuste del header para checkout */
+body {
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    min-height: 100vh;
+    padding: 0; /* quitar padding que empuja todo */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
 
-        .ticket-container {
-            background: #fff;
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 15px;
-        }
+/* Hacer que el header quede arriba pegado */
+.checkout-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
 
-        .btn-regresar {
-            margin-top: 25px;
-            background-color: #6c757d;
-            color: white;
-            font-weight: 600;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
+/* Para que el contenido no quede debajo del header */
+.checkout-container {
+    margin-top: 120px; /* ajustar según altura del header */
+}
+    .cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: -400px; /* oculto por defecto */
+  width: 350px;
+  height: 100%;
+  background: #fff;
+  box-shadow: -3px 0 15px rgba(0,0,0,0.2);
+  transition: right 0.3s ease;
+  z-index: 9999;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
 
-        .btn-regresar:hover {
-            background-color: #5a6268;
-        }
+.cart-sidebar.open {
+  right: 0;
+}
 
-        @media (max-width: 768px) {
-            body {
-                padding: 20px;
-            }
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
 
-            .checkout-container {
-                padding: 20px;
-            }
+.cart-items {
+  flex: 1;
+  overflow-y: auto;
+}
 
-            .btn-regresar {
-                width: 100%;
-                margin-top: 20px;
-            }
-        }
+.cart-items .cart-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
 
-        /* 🔹 Estilos específicos para el formulario de checkout */
-        .checkout-container input,
-        .checkout-container textarea {
-            background-color: #fff;
-            border: 1px solid #ced4da;
-            color: #495057;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        .checkout-container input:focus,
-        .checkout-container textarea:focus {
-            background-color: #fff;
-            border: 1px solid #0d6efd;
-            box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
-            outline: none;
-            color: #495057;
-        }
-
-        .checkout-container #button {
-            display: block;
-            background-color: #0d6efd !important;
-            color: #fff !important;
-            border: none;
-            font-weight: 600;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .checkout-container #button:hover {
-            background-color: #084298 !important;
-            color: #fff !important;
-        }
-
-        /* 🔹 Ajuste del header para checkout */
-        body {
-            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-            min-height: 100vh;
-            padding: 0;
-            /* quitar padding que empuja todo */
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Hacer que el header quede arriba pegado */
-        .checkout-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        /* Para que el contenido no quede debajo del header */
-        .checkout-container {
-            margin-top: 120px;
-            /* ajustar según altura del header */
-        }
-
-        .cart-sidebar {
-            position: fixed;
-            top: 0;
-            right: -400px;
-            /* oculto por defecto */
-            width: 350px;
-            height: 100%;
-            background: #fff;
-            box-shadow: -3px 0 15px rgba(0, 0, 0, 0.2);
-            transition: right 0.3s ease;
-            z-index: 9999;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .cart-sidebar.open {
-            right: 0;
-        }
-
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .cart-items {
-            flex: 1;
-            overflow-y: auto;
-        }
-
-        .cart-items .cart-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .cart-footer {
-            margin-top: 15px;
-        }
-    </style>
+.cart-footer {
+  margin-top: 15px;
+}
+  </style>
 </head>
 
-<body class="main-layout position_head"> <!-- 🔹 HEADER (igual que index.html) -->
-    <header>
-        <div class="header">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
-                        <div class="full">
-                            <div class="center-desk">
-                                <div class="logo"> <a href="index.html"><img src="images/logo.png" alt="#" /></a> </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
-                        <nav class="navigation navbar navbar-expand-md navbar-dark"> <button class="navbar-toggler"
-                                type="button" data-toggle="collapse" data-target="#navbarsExample04"> <span
-                                    class="navbar-toggler-icon"></span> </button>
-                            <div class="collapse navbar-collapse" id="navbarsExample04">
-                                <ul class="navbar-nav mr-auto">
-                                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="glasses.html">Productos</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="contact.html">Contactanos</a></li>
-                                    <li class="nav-item active"><a class="nav-link" href="checkout.html">Mi carrito</a>
-                                    </li>
-                                    <li class="nav-item sea_icon"> <a class="nav-link" href="#" id="open-cart"> <i
-                                                class="fa fa-shopping-cart"></i> <span id="cart-count">0</span> </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header> <!-- 🔹 CHECKOUT FORM Y BOUCHER -->
-    <div class="checkout-container">
-        <div class="row g-4">
-            <div class="col-md-6">
-                <div class="cart-box">
-                    <h3>🧾 Boucher de compra</h3>
-                    <div id="order-summary" class="my-3"></div>
-                    <div id="ticket-container" class="ticket-container"></div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <h1>Formulario de compra</h1>
-                <form id="form">
-                    <div class="mb-3"> <label for="name" class="form-label">Nombre</label> <input type="text"
-                            class="form-control" name="name" id="name" required> </div>
-                    <div class="mb-3"> <label for="last" class="form-label">Apellido</label> <input type="text"
-                            class="form-control" name="last" id="last" required> </div>
-                    <div class="mb-3"> <label for="phone" class="form-label">Teléfono</label> <input type="text"
-                            class="form-control" name="phone" id="phone" required> </div>
-                    <div class="mb-3"> <label for="email" class="form-label">Correo electrónico</label> <input
-                            type="email" class="form-control" name="email" id="email" required> </div>
-                    <div class="mb-3"> <label for="address" class="form-label">Direccion</label> <input type="text"
-                            class="form-control" name="address" id="address" required> </div>
-                    <div class="mb-3"> <label for="message" class="form-label">Mensaje</label> <textarea
-                            class="form-control" name="message" id="message" rows="4"
-                            placeholder="Escribe tu mensaje aquí..." required></textarea> </div> <input type="hidden"
-                        name="cartDetails" id="cartDetails"> <input type="submit" id="button" class="btn btn-custom"
-                        value="Enviar mensaje">
-                </form>
-            </div>
-        </div> <!-- 🔹 FOOTER (igual que index.html) -->
-        <footer class="mt-5">
-            <div class="footer">
-                <div class="container text-center">
-                    <p>© 2025 All Rights Reserved. Design by Erick Elizondo</p>
-                </div>
-            </div>
-        </footer> <!-- 🔹 Scripts -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-        <!-- 🔹 Tu JS de checkout (igual que antes) -->
-        <script> emailjs.init('V-hMWsxBw8_MPntU5'); const btn = document.getElementById('button'); const form = document.getElementById('form'); form.addEventListener('submit', function (event) { event.preventDefault(); let carrito = JSON.parse(localStorage.getItem('cartItems')) || []; if (carrito.length === 0) { alert('⚠️ No puedes enviar el formulario sin productos en el carrito.'); return; } btn.value = 'Enviando...'; let detalleCarrito = carrito.map((p, i) => ${ i + 1}.${ p.name } - $${ p.price }).join('\n'); let total = carrito.reduce((sum, p) => sum + (p.price || 0), 0); let ultimoPedido = parseInt(localStorage.getItem('ultimoPedido')) || 0; let numeroPedido = ultimoPedido + 1; localStorage.setItem('ultimoPedido', numeroPedido); const formData = { name: form.name.value, last: form.last.value, phone: form.phone.value, email: form.email.value, message: form.message.value, address: form.address.value, carrito_detalle: detalleCarrito, total: total, numero_pedido: numeroPedido }; const serviceID = 'default_service'; const templateID = 'template_hqqxl2k'; emailjs.send(serviceID, templateID, formData).then(() => { btn.value = 'Enviar mensaje'; alert('✅ Correo enviado correctamente con el detalle del carrito'); form.reset(); localStorage.removeItem('cartItems'); const cartCount = document.getElementById('cart-count'); if (cartCount) cartCount.textContent = 0; mostrarBoucherEnPantalla([], 0, numeroPedido); }).catch((err) => { btn.value = 'Enviar mensaje'; alert('❌ Error al enviar: ' + JSON.stringify(err)); }); }); function mostrarBoucherEnPantalla(cart, total, numeroPedido) { const ticketHTML = <h4 class="text-center mb-3">Sungla Store</h4> <p><strong>Pedido #:</strong> ${numeroPedido}</p> <ul style="list-style:none; padding:0;"> ${cart.map(it => <li>${it.name} - $${it.price}</li>).join('')} </ul> <p><strong>Total:</strong> $${total}</p> <p class="mt-3 text-center" style="font-size:0.85rem;">Gracias por su compra. Pago al recibir.</p>; document.getElementById('ticket-container').innerHTML = ticketHTML; } function generarBoucher(cart, total, numeroPedido) { const { jsPDF } = window.jspdf; const doc = new jsPDF(); let y = 10; doc.setFontSize(16); doc.text(Sungla Store, 10, y); y += 10; doc.setFontSize(12); doc.text(Pedido #: ${ numeroPedido }, 10, y); y += 10; cart.forEach((item, i) => { doc.text(${ i + 1}.${ item.name } - $${ item.price }, 10, y); y += 10; }); doc.text(Total: $${ total }, 10, y); y += 10; doc.text(Gracias por su compra.Pago al recibir., 10, y); doc.save(Boucher_Pedido_${ numeroPedido }.pdf); } (function () { let cart = JSON.parse(localStorage.getItem('cartItems')) || []; let total = cart.reduce((sum, i) => sum + i.price, 0); let ultimoPedido = parseInt(localStorage.getItem('ultimoPedido')) || 0; let numeroPedido = ultimoPedido + 1; const orderHTML = <div style="padding:15px; background:#eef5ff; border-radius:8px;"> <h5>Resumen de su compra:</h5> <ul style="list-style:none; padding:0;"> ${cart.map(it => <li class="cart-item"><span>${it.name}</span><span>$${it.price}</span></li>).join('')} </ul> <p class="text-end mt-2"><strong>Total:</strong> $${total}</p> <div class="text-center mt-3"> <button id="btnTicket" class="btn btn-success w-100">Generar boucher</button> </div> </div>; document.getElementById('order-summary').innerHTML = orderHTML; mostrarBoucherEnPantalla(cart, total, numeroPedido); document.getElementById('btnTicket').addEventListener('click', () => { generarBoucher(cart, total, numeroPedido); }); })(); </script>
-        <script> // Actualiza el contador del carrito al cargar la página document.addEventListener('DOMContentLoaded', () => { const cartCount = document.getElementById('cart-count'); const cart = JSON.parse(localStorage.getItem('cartItems')) || []; if (cartCount) cartCount.textContent = cart.length; }); </script>
-        <script> const openCartBtn = document.getElementById('open-cart'); const cartSidebar = document.getElementById('cart-sidebar'); const closeCartBtn = document.getElementById('close-cart-sidebar'); const cartItemsContainer = document.getElementById('cart-items-sidebar'); const cartTotalSidebar = document.getElementById('cart-total-sidebar'); const cartCountElem = document.getElementById('cart-count'); function updateCartSidebar() {
-                const cart = JSON.parse(localStorage.getItem('cartItems')) || []; cartItemsContainer.innerHTML = ''; let total = 0; cart.forEach((item, idx) => { const div = document.createElement('div'); div.classList.add('cart-item'); div.innerHTML = <span>${item.name} - $${item.price}</span> <button data-index="${idx}" class="remove-item btn btn-sm btn-danger">X</button>; cartItemsContainer.appendChild(div); total += item.price || 0; }); cartTotalSidebar.textContent = total; // Agregar funcionalidad a los botones de eliminar const removeBtns = cartItemsContainer.querySelectorAll('.remove-item'); removeBtns.forEach(btn => { btn.addEventListener('click', (e) => { const idx = e.target.dataset.index; cart.splice(idx, 1); localStorage.setItem('cartItems', JSON.stringify(cart)); updateCartSidebar(); document.getElementById('cart-count').textContent = cart.length; }); }); } // Abrir y cerrar sidebar if(openCartBtn){ openCartBtn.addEventListener('click', e => { e.preventDefault(); cartSidebar.classList.add('open'); updateCartSidebar(); }); } if(closeCartBtn){ closeCartBtn.addEventListener('click', ()=> cartSidebar.classList.remove('open')); } // Inicializar contador al cargar document.addEventListener('DOMContentLoaded', () => { const cart = JSON.parse(localStorage.getItem('cartItems')) || []; document.getElementById('cart-count').textContent = cart.length; }); </script>
-        <!-- Sidebar del carrito -->
-        <div id="cart-sidebar" class="cart-sidebar">
-            <div class="cart-header">
-                <h5>🛒 Mi carrito</h5> <button id="close-cart-sidebar">×</button>
-            </div>
-            <div id="cart-items-sidebar" class="cart-items"></div>
-            <div class="cart-footer">
-                <p>Total: $<span id="cart-total-sidebar">0</span></p> <button id="continue-cart"
-                    class="btn btn-success w-100">Continuar</button>
-            </div>
-        </div>
-        <script> document.addEventListener('DOMContentLoaded', () => { const openCartBtn = document.getElementById('open-cart'); const cartSidebar = document.getElementById('cart-sidebar'); const closeCartBtn = document.getElementById('close-cart-sidebar'); const cartItemsContainer = document.getElementById('cart-items-sidebar'); const cartTotalSidebar = document.getElementById('cart-total-sidebar'); const cartCountElem = document.getElementById('cart-count'); function updateCartSidebar() { const cart = JSON.parse(localStorage.getItem('cartItems')) || []; cartItemsContainer.innerHTML = ''; let total = 0; cart.forEach((item, idx) => { const div = document.createElement('div'); div.classList.add('cart-item'); div.innerHTML = <span>${item.name} - $${item.price}</span> <button data-index="${idx}" class="remove-item btn btn-sm btn-danger">X</button>; cartItemsContainer.appendChild(div); total += item.price || 0; }); cartTotalSidebar.textContent = total; cartCountElem.textContent = cart.length; const removeBtns = cartItemsContainer.querySelectorAll('.remove-item'); removeBtns.forEach(btn => { btn.addEventListener('click', e => { const idx = e.target.dataset.index; const cart = JSON.parse(localStorage.getItem('cartItems')) || []; cart.splice(idx, 1); localStorage.setItem('cartItems', JSON.stringify(cart)); updateCartSidebar(); }); }); } if (openCartBtn) { openCartBtn.addEventListener('click', e => { e.preventDefault(); cartSidebar.classList.add('open'); updateCartSidebar(); }); } if (closeCartBtn) { closeCartBtn.addEventListener('click', () => { cartSidebar.classList.remove('open'); }); } updateCartSidebar(); }); </script>
-        <script> document.addEventListener('DOMContentLoaded', () => { const cartSidebar = document.getElementById('cart-sidebar'); const continueBtn = document.getElementById('continue-cart'); if (continueBtn) { continueBtn.addEventListener('click', () => { cartSidebar.classList.remove('open'); // 🔹 Cierra el carrito }); } }); </script>
-</body>
+<body class="main-layout position_head">
 
+  <!-- 🔹 HEADER (igual que index.html) -->
+  <header>
+    <div class="header">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+            <div class="full">
+              <div class="center-desk">
+                <div class="logo">
+                  <a href="index.html"><img src="images/logo.png" alt="#" /></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+            <nav class="navigation navbar navbar-expand-md navbar-dark">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarsExample04">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                  <li class="nav-item"><a class="nav-link" href="glasses.html">Productos</a></li>
+                  <li class="nav-item"><a class="nav-link" href="contact.html">Contactanos</a></li>
+                  <li class="nav-item active"><a class="nav-link" href="checkout.html">Mi carrito</a></li>
+                  <li class="nav-item sea_icon">
+                    <a class="nav-link" href="#" id="open-cart">
+                      <i class="fa fa-shopping-cart"></i> <span id="cart-count">0</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 🔹 CHECKOUT FORM Y BOUCHER -->
+  <div class="checkout-container">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="cart-box">
+          <h3>🧾 Boucher de compra</h3>
+          <div id="order-summary" class="my-3"></div>
+          <div id="ticket-container" class="ticket-container"></div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <h1>Formulario de compra</h1>
+        <form id="form">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" class="form-control" name="name" id="name" required>
+          </div>
+          <div class="mb-3">
+            <label for="last" class="form-label">Apellido</label>
+            <input type="text" class="form-control" name="last" id="last" required>
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">Teléfono</label>
+            <input type="text" class="form-control" name="phone" id="phone" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" name="email" id="email" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="user_adress" class="form-label">Direccion</label>
+            <input type="text" class="form-control" name="user_adress" id="user_adress" required>
+          </div>
+          
+          <div class="mb-3">
+            <label for="message" class="form-label">Mensaje</label>
+            <textarea class="form-control" name="message" id="message" rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
+          </div>
+          
+
+          <input type="hidden" name="cartDetails" id="cartDetails">
+          <input type="submit" id="button" class="btn btn-custom" value="Enviar mensaje">
+        </form>
+      </div>
+    </div>
+
+ 
+
+  <!-- 🔹 FOOTER (igual que index.html) -->
+  <footer class="mt-5">
+    <div class="footer">
+      <div class="container text-center">
+        <p>© 2025 All Rights Reserved. Design by Erick Elizondo</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 🔹 Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- 🔹 Tu JS de checkout (igual que antes) -->
+  <script>
+    emailjs.init('V-hMWsxBw8_MPntU5');
+    const btn = document.getElementById('button');
+    const form = document.getElementById('form');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      let carrito = JSON.parse(localStorage.getItem('cartItems')) || [];
+      if (carrito.length === 0) { alert('⚠️ No puedes enviar el formulario sin productos en el carrito.'); return; }
+      btn.value = 'Enviando...';
+
+      let detalleCarrito = carrito.map((p, i) => `${i + 1}. ${p.name} - $${p.price}`).join('\n');
+      let total = carrito.reduce((sum, p) => sum + (p.price || 0), 0);
+
+      let ultimoPedido = parseInt(localStorage.getItem('ultimoPedido')) || 0;
+      let numeroPedido = ultimoPedido + 1;
+      localStorage.setItem('ultimoPedido', numeroPedido);
+
+      const formData = {
+        name: form.name.value,
+        last: form.last.value,
+        phone: form.phone.value,
+        email: form.email.value,
+        message: form.message.value,
+        carrito_detalle: detalleCarrito,
+        total: total,
+        numero_pedido: numeroPedido
+      };
+
+      const serviceID = 'default_service';
+      const templateID = 'template_hqqxl2k';
+
+      emailjs.send(serviceID, templateID, formData)
+      .then(() => {
+        btn.value = 'Enviar mensaje';
+        alert('✅ Correo enviado correctamente con el detalle del carrito');
+        form.reset();
+        localStorage.removeItem('cartItems');
+        const cartCount = document.getElementById('cart-count');
+        if (cartCount) cartCount.textContent = 0;
+        mostrarBoucherEnPantalla([], 0, numeroPedido);
+      })
+      .catch((err) => {
+        btn.value = 'Enviar mensaje';
+        alert('❌ Error al enviar: ' + JSON.stringify(err));
+      });
+    });
+
+    function mostrarBoucherEnPantalla(cart, total, numeroPedido) {
+      const ticketHTML = `
+        <h4 class="text-center mb-3">Sungla Store</h4>
+        <p><strong>Pedido #:</strong> ${numeroPedido}</p>
+        <ul style="list-style:none; padding:0;">
+          ${cart.map(it => `<li>${it.name} - $${it.price}</li>`).join('')}
+        </ul>
+        <p><strong>Total:</strong> $${total}</p>
+        <p class="mt-3 text-center" style="font-size:0.85rem;">Gracias por su compra. Pago al recibir.</p>
+      `;
+      document.getElementById('ticket-container').innerHTML = ticketHTML;
+    }
+
+    function generarBoucher(cart, total, numeroPedido) {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      let y = 10;
+      doc.setFontSize(16);
+      doc.text(`Sungla Store`, 10, y); y += 10;
+      doc.setFontSize(12);
+      doc.text(`Pedido #: ${numeroPedido}`, 10, y); y += 10;
+      cart.forEach((item, i) => { doc.text(`${i + 1}. ${item.name} - $${item.price}`, 10, y); y += 10; });
+      doc.text(`Total: $${total}`, 10, y); y += 10;
+      doc.text(`Gracias por su compra. Pago al recibir.`, 10, y);
+      doc.save(`Boucher_Pedido_${numeroPedido}.pdf`);
+    }
+
+    (function() {
+      let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+      let total = cart.reduce((sum,i)=>sum+i.price,0);
+      let ultimoPedido = parseInt(localStorage.getItem('ultimoPedido')) || 0;
+      let numeroPedido = ultimoPedido + 1;
+
+      const orderHTML = `
+        <div style="padding:15px; background:#eef5ff; border-radius:8px;">
+          <h5>Resumen de su compra:</h5>
+          <ul style="list-style:none; padding:0;">
+            ${cart.map(it=>`<li class="cart-item"><span>${it.name}</span><span>$${it.price}</span></li>`).join('')}
+          </ul>
+          <p class="text-end mt-2"><strong>Total:</strong> $${total}</p>
+          <div class="text-center mt-3">
+            <button id="btnTicket" class="btn btn-success w-100">Generar boucher</button>
+          </div>
+        </div>
+      `;
+      document.getElementById('order-summary').innerHTML = orderHTML;
+      mostrarBoucherEnPantalla(cart, total, numeroPedido);
+      document.getElementById('btnTicket').addEventListener('click', () => { generarBoucher(cart, total, numeroPedido); });
+    })();
+
+    
+  </script>
+<script>
+  // Actualiza el contador del carrito al cargar la página
+  document.addEventListener('DOMContentLoaded', () => {
+    const cartCount = document.getElementById('cart-count');
+    const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+    if (cartCount) cartCount.textContent = cart.length;
+  });
+</script>
+  <script>
+  const openCartBtn = document.getElementById('open-cart');
+  const cartSidebar = document.getElementById('cart-sidebar');
+  const closeCartBtn = document.getElementById('close-cart-sidebar');
+  const cartItemsContainer = document.getElementById('cart-items-sidebar');
+  const cartTotalSidebar = document.getElementById('cart-total-sidebar');
+const cartCountElem = document.getElementById('cart-count');
+    
+  function updateCartSidebar() {
+    const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+    cartItemsContainer.innerHTML = '';
+    let total = 0;
+
+    cart.forEach((item, idx) => {
+      const div = document.createElement('div');
+      div.classList.add('cart-item');
+      div.innerHTML = `
+        <span>${item.name} - $${item.price}</span>
+        <button data-index="${idx}" class="remove-item btn btn-sm btn-danger">X</button>
+      `;
+      cartItemsContainer.appendChild(div);
+      total += item.price || 0;
+    });
+
+    cartTotalSidebar.textContent = total;
+
+    // Agregar funcionalidad a los botones de eliminar
+    const removeBtns = cartItemsContainer.querySelectorAll('.remove-item');
+    removeBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = e.target.dataset.index;
+        cart.splice(idx, 1);
+        localStorage.setItem('cartItems', JSON.stringify(cart));
+        updateCartSidebar();
+        document.getElementById('cart-count').textContent = cart.length;
+      });
+    });
+  }
+// Abrir y cerrar sidebar
+ if(openCartBtn){
+  openCartBtn.addEventListener('click', e => {
+    e.preventDefault();
+    cartSidebar.classList.add('open');
+    updateCartSidebar();
+  });
+}
+
+if(closeCartBtn){
+  closeCartBtn.addEventListener('click', ()=> cartSidebar.classList.remove('open'));
+}
+
+  // Inicializar contador al cargar
+  document.addEventListener('DOMContentLoaded', () => {
+    const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+    document.getElementById('cart-count').textContent = cart.length;
+  });
+</script>
+  <!-- Sidebar del carrito -->
+<div id="cart-sidebar" class="cart-sidebar">
+  <div class="cart-header">
+    <h5>🛒 Mi carrito</h5>
+    <button id="close-cart-sidebar">×</button>
+  </div>
+
+  <div id="cart-items-sidebar" class="cart-items"></div>
+
+  <div class="cart-footer">
+    <p>Total: $<span id="cart-total-sidebar">0</span></p>
+    <button id="continue-cart" class="btn btn-success w-100">Continuar</button>
+  </div>
+</div>
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const openCartBtn = document.getElementById('open-cart');
+  const cartSidebar = document.getElementById('cart-sidebar');
+  const closeCartBtn = document.getElementById('close-cart-sidebar');
+  const cartItemsContainer = document.getElementById('cart-items-sidebar');
+  const cartTotalSidebar = document.getElementById('cart-total-sidebar');
+  const cartCountElem = document.getElementById('cart-count');
+
+  function updateCartSidebar() {
+    const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+    cartItemsContainer.innerHTML = '';
+    let total = 0;
+
+    cart.forEach((item, idx) => {
+      const div = document.createElement('div');
+      div.classList.add('cart-item');
+      div.innerHTML = `
+        <span>${item.name} - $${item.price}</span>
+        <button data-index="${idx}" class="remove-item btn btn-sm btn-danger">X</button>
+      `;
+      cartItemsContainer.appendChild(div);
+      total += item.price || 0;
+    });
+
+    cartTotalSidebar.textContent = total;
+    cartCountElem.textContent = cart.length;
+
+    const removeBtns = cartItemsContainer.querySelectorAll('.remove-item');
+    removeBtns.forEach(btn => {
+      btn.addEventListener('click', e => {
+        const idx = e.target.dataset.index;
+        const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+        cart.splice(idx, 1);
+        localStorage.setItem('cartItems', JSON.stringify(cart));
+        updateCartSidebar();
+      });
+    });
+  }
+
+  if (openCartBtn) {
+    openCartBtn.addEventListener('click', e => {
+      e.preventDefault();
+      cartSidebar.classList.add('open');
+      updateCartSidebar();
+    });
+  }
+
+  if (closeCartBtn) {
+    closeCartBtn.addEventListener('click', () => {
+      cartSidebar.classList.remove('open');
+    });
+  }
+
+  updateCartSidebar();
+});
+</script>
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const cartSidebar = document.getElementById('cart-sidebar');
+  const continueBtn = document.getElementById('continue-cart');
+
+  if (continueBtn) {
+    continueBtn.addEventListener('click', () => {
+      cartSidebar.classList.remove('open'); // 🔹 Cierra el carrito
+    });
+  }
+});
+</script>
+</body>
 </html>
