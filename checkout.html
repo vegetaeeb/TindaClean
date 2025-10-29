@@ -41,6 +41,40 @@
       .checkout-container { padding: 20px; }
       .btn-regresar { width: 100%; margin-top: 20px; }
     }
+    /* 🔹 Estilos específicos para el formulario de checkout */
+.checkout-container input,
+.checkout-container textarea {
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  color: #495057;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.checkout-container input:focus,
+.checkout-container textarea:focus {
+  background-color: #fff;
+  border: 1px solid #0d6efd;
+  box-shadow: 0 0 5px rgba(13,110,253,0.5);
+  outline: none;
+  color: #495057;
+}
+
+.checkout-container #button {
+  display: block;
+  background-color: #0d6efd !important;
+  color: #fff !important;
+  border: none;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.checkout-container #button:hover {
+  background-color: #084298 !important;
+  color: #fff !important;
+}
   </style>
 </head>
 
