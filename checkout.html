@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout - Erick</title>
+  <title>Checkout - Sungla</title>
 
   <!-- Bootstrap y estilos generales -->
   <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -263,14 +263,11 @@ body {
       let detalleCarrito = carrito.map((p, i) => `${i + 1}. ${p.name} - $${p.price}`).join('\n');
       let total = carrito.reduce((sum, p) => sum + (p.price || 0), 0);
 
- (function() {
-      let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
-      let total = cart.reduce((sum,i)=>sum+i.price,0);
       let ultimoPedido = parseInt(localStorage.getItem('ultimoPedido')) || 0;
-      let numeroPedido = ultimoPedido + 7;
+      let numeroPedido = ultimoPedido + 1;
+      localStorage.setItem('ultimoPedido', numeroPedido);
 
-
-      const formData = {
+    const formData = {
         name: form.name.value,
         last: form.last.value,
         phone: form.phone.value,
@@ -331,7 +328,7 @@ body {
       let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
       let total = cart.reduce((sum,i)=>sum+i.price,0);
       let ultimoPedido = parseInt(localStorage.getItem('ultimoPedido')) || 0;
-      let numeroPedido = ultimoPedido + 7;
+      let numeroPedido = ultimoPedido + 1;
 
       const orderHTML = `
         <div style="padding:15px; background:#eef5ff; border-radius:8px;">
