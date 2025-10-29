@@ -316,5 +316,17 @@ body {
     if (cartCount) cartCount.textContent = cart.length;
   });
 </script>
+  <!-- Sidebar del carrito -->
+<div id="cart-sidebar" class="cart-sidebar">
+  <div class="cart-header">
+    <h5>🛒 Mi carrito</h5>
+    <button id="close-cart-sidebar">&times;</button>
+  </div>
+  <div id="cart-items-sidebar" class="cart-items"></div>
+  <div class="cart-footer">
+    <p>Total: $<span id="cart-total-sidebar">0</span></p>
+    <a href="checkout.html" class="btn btn-primary w-100">Ir al checkout</a>
+  </div>
+</div>
 </body>
 </html>
