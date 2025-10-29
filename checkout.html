@@ -263,7 +263,10 @@ body {
       let detalleCarrito = carrito.map((p, i) => `${i + 1}. ${p.name} - $${p.price}`).join('\n');
       let total = carrito.reduce((sum, p) => sum + (p.price || 0), 0);
 
-
+(function() { let cart = JSON.parse(localStorage.getItem('cartItems')) || []; 
+             let total = cart.reduce((sum,i)=>sum+i.price,0); 
+             let ultimoPedido = parseInt(localStorage.getItem('ultimoPedido')) || 0; 
+             let numeroPedido = ultimoPedido + 1;
 
 
       const formData = {
