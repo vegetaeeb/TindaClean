@@ -205,17 +205,13 @@
   </footer>
 
   <!-- SIDEBAR DEL CARRITO -->
-  <div id="cart-sidebar" class="cart-sidebar">
-    <div class="cart-header">
-      <h5>🛒 Mi carrito</h5>
-      <button id="close-cart-sidebar">&times;</button>
-    </div>
-    <div id="cart-items-sidebar" class="cart-items"></div>
-    <div class="cart-footer">
-      <p>Total: $<span id="cart-total-sidebar">0</span></p>
-      <a href="checkout.html" class="btn btn-primary w-100">Ir al checkout</a>
-    </div>
-  </div>
+ <div id="cart-panel" class="cart-panel">
+    <h3>Carrito de Compras</h3>
+    <ul id="cart-items"></ul>
+    <p><strong>Total:</strong> $<span id="cart-total">0</span></p>
+    <button id="checkout-btn" class="btn btn-success">Finalizar Pedido</button>
+    <button id="close-btn" class="btn btn-secondary">Cerrar</button>
+</div>
 
   <!-- SCRIPTS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
