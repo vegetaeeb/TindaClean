@@ -263,9 +263,15 @@ body {
       let detalleCarrito = carrito.map((p, i) => `${i + 1}. ${p.name} - $${p.price}`).join('\n');
       let total = carrito.reduce((sum, p) => sum + (p.price || 0), 0);
 
-      let ultimoPedido = parseInt(localStorage.getItem('ultimoPedido')) || 0;
-      let numeroPedido = ultimoPedido + 1;
-      localStorage.setItem('ultimoPedido', numeroPedido);
+      
+
+// 🔹 Generar un código corto tipo "CP-8888529"
+function generarCodigoPedido() {
+  const randomNum = Math.floor(1000000 + Math.random() * 9000000); // número aleatorio de 7 dígitos
+  return `CP-${randomNum}`;
+}
+
+const numeroPedido = generarCodigoPedido();
 
       const formData = {
         name: form.name.value,
