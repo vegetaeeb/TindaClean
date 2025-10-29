@@ -405,77 +405,7 @@
       doc.text(`Gracias por su compra. Pago al recibir.`,10,y);
       doc.save(`Boucher_Pedido_${numeroPedido}.pdf`);
     });
-$(document).ready(function(){
-    let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-    function updateCart(){
-        $("#cart-count").text(cart.length);
-        $("#cart-items").empty();
-        let total = 0;
-        cart.forEach((item,index)=>{
-            total += item.price;
-            $("#cart-items").append(
-                `<li>${item.name} - $${item.price} <span class="remove-item" data-index="${index}">×</span></li>`
-            );
-        });
-        $("#cart-total").text(total);
-        localStorage.setItem('cartItems', JSON.stringify(cart));
-    }
-
-    $(".add-to-cart").click(function(){
-        const name = $(this).data("name");
-        const price = Number($(this).data("price"));
-        const producto = {name, price};
-
-        // Agregar al carrito y mostrar mensaje
-        agregarAlCarrito(producto);
-
-        // Actualizar lista del panel
-        cart.push(producto);
-        updateCart();
-    });
-
-    $("#cart-items").on("click",".remove-item",function(){
-        const index = $(this).data("index");
-        cart.splice(index,1);
-        updateCart();
-    });
-
-    $("#open-cart").click(()=> $("#cart-panel").addClass("open"));
-    $("#close-btn").click(()=> $("#cart-panel").removeClass("open"));
-
-    $("#checkout-btn").click(()=>{
-        localStorage.setItem('cartItems', JSON.stringify(cart));
-        localStorage.setItem('cartTotal', cart.reduce((sum,item)=>sum+item.price,0));
-        window.location.href="checkout.html";
-    });
-
-    updateCart();
-});
-
-function agregarAlCarrito(producto){
-    let carrito = JSON.parse(localStorage.getItem('cartItems')) || [];
-    carrito.push(producto);
-    localStorage.setItem('cartItems', JSON.stringify(carrito));
-
-    const cartCount = document.getElementById('cart-count');
-    if(cartCount) cartCount.textContent = carrito.length;
-
-    const toast = document.createElement('div');
-    toast.textContent = `✅ ${producto.name} agregado al carrito`;
-    toast.style.position = 'fixed';
-    toast.style.bottom = '20px';
-    toast.style.left = '50%';
-    toast.style.transform = 'translateX(-50%)';
-    toast.style.background = '#0d6efd';
-    toast.style.color = 'white';
-    toast.style.padding = '10px 20px';
-    toast.style.borderRadius = '8px';
-    toast.style.zIndex = '9999';
-    document.body.appendChild(toast);
-    setTimeout(()=>toast.remove(),2000);
-}
-</script>
   });
   </script>
 
