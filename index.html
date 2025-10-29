@@ -74,13 +74,11 @@
         <li class="nav-item"><a class="nav-link" href="glasses.html">Productos</a></li>
         <li class="nav-item"><a class="nav-link" href="contact.html">Contactanos</a></li>
        <li class="nav-item"><a class="nav-link" href="checkout.html">Mi carrito</a></li>
-                <!-- Dropdown Login -->
-      <!-- Carrito -->
-        <li class="nav-item sea_icon">
+      <li class="nav-item sea_icon">
             <a class="nav-link" href="#" id="open-cart">
                 <i class="fa fa-shopping-cart"></i> <span id="cart-count">0</span>
             </a>
-        </li>
+      </li>
     </ul>
 </div>
     </div>
@@ -189,7 +187,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <p>© 2025 All Rights Reserved. Design by <a href="Erick Elizondo"a></p>
+                        <p>© 2025 All Rights Reserved. Design by <a href="Erick Elizondo">Erick Elizondo</a></p>
                     </div>
                 </div>
             </div>
@@ -197,130 +195,127 @@
     </div>
 </footer>
 
+<!-- Scripts -->
+
+<!-- Funciones del carrito -->
+
 <script>
-$(document).ready(function(){
+script>
+function agregarAlCarrito(producto) {
     let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+    cart.push(producto);
+    localStorage.setItem('cartItems', JSON.stringify(cart));
 
+    // Actualizar contador
+    const cartCount = document.getElementById('cart-count');
+    if (cartCount) cartCount.textContent = cart.length;
+
+    // Mostrar mensaje temporal
+    const toast = document.createElement('div');
+    toast.textContent = `✅ ${producto.name} agregado al carrito`;
+    toast.style.position = 'fixed';
+    toast.style.bottom = '20px';
+    toast.style.left = '50%';
+    toast.style.transform = 'translateX(-50%)';
+    toast.style.background = '#0d6efd';
+    toast.style.color = 'white';
+    toast.style.padding = '10px 20px';
+    toast.style.borderRadius = '8px';
+    toast.style.zIndex = '9999';
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2000);
+
+    // Actualizar panel flotante
+    updateCartPanel();
+}
+
+function updateCartPanel() {
+    let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+    let total = 0;
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartTotalContainer = document.getElementById('cart-total');
+    cartItemsContainer.innerHTML = '';
+    cart.forEach((item,index)=>{
+        total += item.price;
+        cartItemsContainer.innerHTML += `<li>${item.name} - $${item.price} <span class="remove-item" data-index="${index}">×</span></li>`;
+    });
+    cartTotalContainer.textContent = total;
+}
+
+$(document).ready(function(){
+    // Inicializar carrito
     function updateCart(){
+        let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
         $("#cart-count").text(cart.length);
-        $("#cart-items").empty();
-        let total = 0;
-        cart.forEach((item,index)=>{
-            total += item.price;
-            $("#cart-items").append(
-                `<li>${item.name} - $${item.price} 
-                    <span class="remove-item" data-index="${index}">×</span>
-                </li>`
-            );
-        });
-        $("#cart-total").text(total);
-        localStorage.setItem('cartItems', JSON.stringify(cart));
+        updateCartPanel();
     }
-    
-$(".add-to-cart").click(function(){
-    const name = $(this).data("name");
-    const price = Number($(this).data("price"));
-    const producto = {name, price};
-    agregarAlCarrito(producto); // Ahora sí muestra el mensaje
-    updateCart(); // Actualiza contador y lista
-});
-   
 
+    // Botón agregar al carrito
+    $(".add-to-cart").click(function(){
+        const name = $(this).data("name");
+        const price = Number($(this).data("price"));
+        const producto = {name, price};
+        agregarAlCarrito(producto);
+    });
+
+    // Quitar item
     $("#cart-items").on("click",".remove-item",function(){
         const index = $(this).data("index");
+        let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
         cart.splice(index,1);
+        localStorage.setItem('cartItems', JSON.stringify(cart));
         updateCart();
     });
 
+    // Abrir/cerrar panel
     $("#open-cart").click(()=> $("#cart-panel").addClass("open"));
     $("#close-btn").click(()=> $("#cart-panel").removeClass("open"));
 
+// Checkout
     $("#checkout-btn").click(()=>{
+        let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
         localStorage.setItem('cartItems', JSON.stringify(cart));
         localStorage.setItem('cartTotal', cart.reduce((sum,item)=>sum+item.price,0));
         window.location.href="checkout.html";
     });
 
+    // Inicializar carrito al cargar página
     updateCart();
 });
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
- <!-- Script EmailJS -->
+
+<!-- EmailJS -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
-  (function(){
-    emailjs.init("xrf2Ax66ElkV8Y_Bi"); // lo copias desde tu panel de EmailJS
-  })();
+(function(){
+    emailjs.init("xrf2Ax66ElkV8Y_Bi");
+})();
 
-  document.getElementById("formCompra").addEventListener("submit", function(e) {
-    e.preventDefault();
+document.addEventListener("DOMContentLoaded", function(){
+    const form = document.getElementById("formCompra");
+    if(form){
+        form.addEventListener("submit", function(e){
+            e.preventDefault();
+            const nombre = this.nombre.value;
+            const email = this.email.value;
 
-    const nombre = this.nombre.value;
-    const email = this.email.value;
-
-    // 🔹 Enviar correo por EmailJS
-    emailjs.send("service_4c4o0vs", "template_8patfxt", {
-      nombre: nombre,
-      email: email
-    }).then(function() {
-      alert("✅ Compra realizada. Se envió un correo de confirmación.");
-
-      // 🔹 Descargar PDF automáticamente
-      window.open("boleta.pdf", "_blank");
-
-    }, function(error) {
-      alert("❌ Error al enviar el correo: " + JSON.stringify(error));
-    });
-  });
-
-        // Mostrar carrito al cargar la página
-    updateCart();
+            emailjs.send("service_4c4o0vs", "template_8patfxt", { nombre, email })
+            .then(function(){
+                alert("✅ Compra realizada. Se envió un correo de confirmación.");
+                window.open("boleta.pdf", "_blank");
+            }, function(error){
+                alert("❌ Error al enviar el correo: " + JSON.stringify(error));
+            });
+        });
+    }
 });
-    function agregarAlCarrito(producto) {
-  let carrito = JSON.parse(localStorage.getItem('cartItems')) || [];
-  carrito.push(producto);
-  localStorage.setItem('cartItems', JSON.stringify(carrito));
-
-  // Actualizar contador si existe
-  const cartCount = document.getElementById('cart-count');
-  if (cartCount) cartCount.textContent = carrito.length;
-
-  // Mensaje temporal
-  const toast = document.createElement('div');
-  toast.textContent = `✅ ${producto.name} agregado al carrito`;
-  toast.style.position = 'fixed';
-  toast.style.bottom = '20px';
-  toast.style.left = '50%';
-  toast.style.transform = 'translateX(-50%)';
-  toast.style.background = '#0d6efd';
-  toast.style.color = 'white';
-  toast.style.padding = '10px 20px';
-  toast.style.borderRadius = '8px';
-  toast.style.zIndex = '9999';
-  document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), 2000);
-}
 </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
