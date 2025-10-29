@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout - Sungla</title>
+  <title>Checkout - TClean</title>
 
   <!-- Bootstrap y estilos generales -->
   <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -299,7 +299,7 @@ body {
 
     function mostrarBoucherEnPantalla(cart, total, numeroPedido) {
       const ticketHTML = `
-        <h4 class="text-center mb-3">Sungla Store</h4>
+        <h4 class="text-center mb-3">TClean Store</h4>
         <p><strong>Pedido #:</strong> ${numeroPedido}</p>
         <ul style="list-style:none; padding:0;">
           ${cart.map(it => `<li>${it.name} - $${it.price}</li>`).join('')}
@@ -315,7 +315,7 @@ body {
       const doc = new jsPDF();
       let y = 10;
       doc.setFontSize(16);
-      doc.text(`Sungla Store`, 10, y); y += 10;
+      doc.text(`TClean Store`, 10, y); y += 10;
       doc.setFontSize(12);
       doc.text(`Pedido #: ${numeroPedido}`, 10, y); y += 10;
       cart.forEach((item, i) => { doc.text(`${i + 1}. ${item.name} - $${item.price}`, 10, y); y += 10; });
