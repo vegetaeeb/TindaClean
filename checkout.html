@@ -356,6 +356,64 @@ body {
     if (cartCount) cartCount.textContent = cart.length;
   });
 </script>
+  <script>
+  const openCartBtn = document.getElementById('open-cart');
+  const cartSidebar = document.getElementById('cart-sidebar');
+  const closeCartBtn = document.getElementById('close-cart-sidebar');
+  const cartItemsContainer = document.getElementById('cart-items-sidebar');
+  const cartTotalSidebar = document.getElementById('cart-total-sidebar');
+
+  function updateCartSidebar() {
+    const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+    cartItemsContainer.innerHTML = '';
+    let total = 0;
+
+    cart.forEach((item, idx) => {
+      const div = document.createElement('div');
+      div.classList.add('cart-item');
+      div.innerHTML = `
+        <span>${item.name} - $${item.price}</span>
+        <button data-index="${idx}" class="remove-item btn btn-sm btn-danger">X</button>
+      `;
+      cartItemsContainer.appendChild(div);
+      total += item.price || 0;
+    });
+
+    cartTotalSidebar.textContent = total;
+
+    // Agregar funcionalidad a los botones de eliminar
+    const removeBtns = cartItemsContainer.querySelectorAll('.remove-item');
+    removeBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = e.target.dataset.index;
+        cart.splice(idx, 1);
+        localStorage.setItem('cartItems', JSON.stringify(cart));
+        updateCartSidebar();
+        document.getElementById('cart-count').textContent = cart.length;
+      });
+    });
+  }
+
+  if (openCartBtn) {
+    openCartBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      cartSidebar.classList.add('open');
+      updateCartSidebar();
+    });
+  }
+
+  if (closeCartBtn) {
+    closeCartBtn.addEventListener('click', () => {
+      cartSidebar.classList.remove('open');
+    });
+  }
+
+  // Inicializar contador al cargar
+  document.addEventListener('DOMContentLoaded', () => {
+    const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+    document.getElementById('cart-count').textContent = cart.length;
+  });
+</script>
   <!-- Sidebar del carrito -->
 <div id="cart-sidebar" class="cart-sidebar">
   <div class="cart-header">
