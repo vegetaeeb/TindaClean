@@ -308,6 +308,13 @@ body {
       window.location.href = 'index.html';
     }
   </script>
-
+<script>
+  // Actualiza el contador del carrito al cargar la página
+  document.addEventListener('DOMContentLoaded', () => {
+    const cartCount = document.getElementById('cart-count');
+    const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+    if (cartCount) cartCount.textContent = cart.length;
+  });
+</script>
 </body>
 </html>
