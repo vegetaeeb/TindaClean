@@ -216,13 +216,15 @@ $(document).ready(function(){
         $("#cart-total").text(total);
         localStorage.setItem('cartItems', JSON.stringify(cart));
     }
-
-    $(".add-to-cart").click(function(){
-        const name = $(this).data("name");
-        const price = Number($(this).data("price"));
-        cart.push({name, price});
-        updateCart();
-    });
+    
+$(".add-to-cart").click(function(){
+    const name = $(this).data("name");
+    const price = Number($(this).data("price"));
+    const producto = {name, price};
+    agregarAlCarrito(producto); // Ahora sí muestra el mensaje
+    updateCart(); // Actualiza contador y lista
+});
+   
 
     $("#cart-items").on("click",".remove-item",function(){
         const index = $(this).data("index");
@@ -303,6 +305,7 @@ $(document).ready(function(){
 </script>
 </body>
 </html>
+
 
 
 
