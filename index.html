@@ -24,8 +24,10 @@
     box-shadow: -4px 0 10px rgba(0,0,0,0.2);
     transition: 0.3s;
     z-index: 10000;
+    overflow-y: auto;
 }
 .cart-panel.open { right: 0; }
+
 #open-cart {
     position: fixed;
     top: 20px;
@@ -37,6 +39,8 @@
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0,0,0,0.3);
 }
+#open-cart:hover { opacity:0.8; }
+
 .remove-item {
     cursor: pointer;
     color: black;
@@ -46,7 +50,6 @@
 .remove-item:hover { color: red; }
 </style>
 </head>
-
 <body class="main-layout position_head">
 
 <!-- Header -->
@@ -68,19 +71,23 @@
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                    <div class="collapse navbar-collapse" id="navbarsExample04">
-    <ul class="navbar-nav mr-auto">
-    <li class="nav-item active"><a class="nav-link" href="index.html">Inicio</a></li>
-        <li class="nav-item"><a class="nav-link" href="glasses.html">Productos</a></li>
-        <li class="nav-item"><a class="nav-link" href="contact.html">Contactanos</a></li>
-       <li class="nav-item"><a class="nav-link" href="checkout.html">Mi carrito</a></li>
-      <li class="nav-item sea_icon">
-            <a class="nav-link" href="#" id="open-cart">
-                <i class="fa fa-shopping-cart"></i> <span id="cart-count">0</span>
-            </a>
-      </li>
-    </ul>
-</div>
+                        <div class="collapse navbar-collapse" id="navbarsExample04">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active"><a class="nav-link" href="index.html">Inicio</a></li>
+                                <li class="nav-item"><a class="nav-link" href="glasses.html">Productos</a></li>
+                                <li class="nav-item"><a class="nav-link" href="contact.html">Contactanos</a></li>
+                                <li class="nav-item"><a class="nav-link" href="checkout.html">Mi carrito</a></li>
+                                <li class="nav-item sea_icon">
+                                    <a class="nav-link" href="#" id="open-cart">
+                                        <i class="fa fa-shopping-cart"></i> <span id="cart-count">0</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
     </div>
 </header>
 
@@ -90,35 +97,13 @@
     <p class="lead">Lentes modernos, cómodos y con protección UV</p>
 </section>
 
-<!-- Beneficios -->
-<section class="features py-5 text-center">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <i class="fa fa-truck fa-3x mb-3"></i>
-                <h4>Entrega a Domicilio</h4>
-                <p>Recibe tus productos directamente en tu hogar.</p>
-            </div>
-            <div class="col-md-4">
-                <i class="fa fa-shield fa-3x mb-3"></i>
-                <h4>Seguridad y Confianza</h4>
-                <p>Productos diseñados para que los uses con total tranquilidad.</p>
-            </div>
-            <div class="col-md-4">
-                <i class="fa fa-credit-card fa-3x mb-3"></i>
-                <h4>Pago Seguro</h4>
-                <p>Transferencia o efectivo al recibir.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Productos -->
+<!-- Productos Destacados -->
 <section class="featured-products py-5">
     <div class="container">
         <h2 class="text-center mb-4">Productos Destacados</h2>
         <div class="row justify-content-center">
 
+            <!-- Producto 1 -->
             <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                 <div class="card shadow-sm">
                     <img src="images/glass1.png" class="card-img-top" alt="Gafas 1">
@@ -130,6 +115,7 @@
                 </div>
             </div>
 
+            <!-- Producto 2 -->
             <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                 <div class="card shadow-sm">
                     <img src="images/glass2.png" class="card-img-top" alt="Gafas 2">
@@ -141,6 +127,7 @@
                 </div>
             </div>
 
+            <!-- Producto 3 -->
             <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                 <div class="card shadow-sm">
                     <img src="images/glass3.png" class="card-img-top" alt="Gafas 3">
@@ -152,10 +139,6 @@
                 </div>
             </div>
 
-        </div>
-
-        <div class="text-center mt-3">
-            <a href="glasses.html" class="btn btn-dark">Ver todos los productos</a>
         </div>
     </div>
 </section>
@@ -172,45 +155,73 @@
 <!-- Footer -->
 <footer class="mt-5">
     <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <ul class="location_icon">
-                        <li><a href="#"><i class="fa fa-map-marker"></i></a><br> Location</li>
-                        <li><a href="#"><i class="fa fa-phone"></i></a><br> +56 920544116</li>
-                        <li><a href="#"><i class="fa fa-envelope"></i></a><br> eelizondo@vtr.net</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="copyright">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p>© 2025 All Rights Reserved. Design by <a href="Erick Elizondo">Erick Elizondo</a></p>
-                    </div>
-                </div>
-            </div>
+        <div class="container text-center">
+            <p>© 2025 All Rights Reserved. Design by Erick Elizondo</p>
         </div>
     </div>
 </footer>
 
 <!-- Scripts -->
-
-<!-- Funciones del carrito -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
 
 <script>
-script>
-function agregarAlCarrito(producto) {
+$(document).ready(function(){
     let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
-    cart.push(producto);
-    localStorage.setItem('cartItems', JSON.stringify(cart));
 
-    // Actualizar contador
+    function updateCart(){
+        $("#cart-count").text(cart.length);
+        $("#cart-items").empty();
+        let total = 0;
+        cart.forEach((item,index)=>{
+            total += item.price;
+            $("#cart-items").append(
+                `<li>${item.name} - $${item.price} <span class="remove-item" data-index="${index}">×</span></li>`
+            );
+        });
+        $("#cart-total").text(total);
+        localStorage.setItem('cartItems', JSON.stringify(cart));
+    }
+
+    $(".add-to-cart").click(function(){
+        const name = $(this).data("name");
+        const price = Number($(this).data("price"));
+        const producto = {name, price};
+
+        // Agregar al carrito y mostrar mensaje
+        agregarAlCarrito(producto);
+
+        // Actualizar lista del panel
+        cart.push(producto);
+        updateCart();
+    });
+
+    $("#cart-items").on("click",".remove-item",function(){
+        const index = $(this).data("index");
+        cart.splice(index,1);
+        updateCart();
+    });
+
+    $("#open-cart").click(()=> $("#cart-panel").addClass("open"));
+    $("#close-btn").click(()=> $("#cart-panel").removeClass("open"));
+
+    $("#checkout-btn").click(()=>{
+        localStorage.setItem('cartItems', JSON.stringify(cart));
+        localStorage.setItem('cartTotal', cart.reduce((sum,item)=>sum+item.price,0));
+        window.location.href="checkout.html";
+    });
+
+    updateCart();
+});
+
+function agregarAlCarrito(producto){
+    let carrito = JSON.parse(localStorage.getItem('cartItems')) || [];
+    carrito.push(producto);
+    localStorage.setItem('cartItems', JSON.stringify(carrito));
+
     const cartCount = document.getElementById('cart-count');
-    if (cartCount) cartCount.textContent = cart.length;
+    if(cartCount) cartCount.textContent = carrito.length;
 
-    // Mostrar mensaje temporal
     const toast = document.createElement('div');
     toast.textContent = `✅ ${producto.name} agregado al carrito`;
     toast.style.position = 'fixed';
@@ -223,107 +234,9 @@ function agregarAlCarrito(producto) {
     toast.style.borderRadius = '8px';
     toast.style.zIndex = '9999';
     document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 2000);
-
-    // Actualizar panel flotante
-    updateCartPanel();
+    setTimeout(()=>toast.remove(),2000);
 }
-
-function updateCartPanel() {
-    let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
-    let total = 0;
-    const cartItemsContainer = document.getElementById('cart-items');
-    const cartTotalContainer = document.getElementById('cart-total');
-    cartItemsContainer.innerHTML = '';
-    cart.forEach((item,index)=>{
-        total += item.price;
-        cartItemsContainer.innerHTML += `<li>${item.name} - $${item.price} <span class="remove-item" data-index="${index}">×</span></li>`;
-    });
-    cartTotalContainer.textContent = total;
-}
-
-$(document).ready(function(){
-    // Inicializar carrito
-    function updateCart(){
-        let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
-        $("#cart-count").text(cart.length);
-        updateCartPanel();
-    }
-
-    // Botón agregar al carrito
-    $(".add-to-cart").click(function(){
-        const name = $(this).data("name");
-        const price = Number($(this).data("price"));
-        const producto = {name, price};
-        agregarAlCarrito(producto);
-    });
-
-    // Quitar item
-    $("#cart-items").on("click",".remove-item",function(){
-        const index = $(this).data("index");
-        let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
-        cart.splice(index,1);
-        localStorage.setItem('cartItems', JSON.stringify(cart));
-        updateCart();
-    });
-
-    // Abrir/cerrar panel
-    $("#open-cart").click(()=> $("#cart-panel").addClass("open"));
-    $("#close-btn").click(()=> $("#cart-panel").removeClass("open"));
-
-// Checkout
-    $("#checkout-btn").click(()=>{
-        let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
-        localStorage.setItem('cartItems', JSON.stringify(cart));
-        localStorage.setItem('cartTotal', cart.reduce((sum,item)=>sum+item.price,0));
-        window.location.href="checkout.html";
-    });
-
-    // Inicializar carrito al cargar página
-    updateCart();
-});
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
-
-<!-- EmailJS -->
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script>
-(function(){
-    emailjs.init("xrf2Ax66ElkV8Y_Bi");
-})();
-
-document.addEventListener("DOMContentLoaded", function(){
-    const form = document.getElementById("formCompra");
-    if(form){
-        form.addEventListener("submit", function(e){
-            e.preventDefault();
-            const nombre = this.nombre.value;
-            const email = this.email.value;
-
-            emailjs.send("service_4c4o0vs", "template_8patfxt", { nombre, email })
-            .then(function(){
-                alert("✅ Compra realizada. Se envió un correo de confirmación.");
-                window.open("boleta.pdf", "_blank");
-            }, function(error){
-                alert("❌ Error al enviar el correo: " + JSON.stringify(error));
-            });
-        });
-    }
-});
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
