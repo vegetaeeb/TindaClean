@@ -1,413 +1,272 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout - Sungla</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Sungla</title> <!-- Bootstrap 5 y estilos generales -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
 
-  <!-- Bootstrap 5 y estilos generales -->
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/responsive.css">
-  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+        /* Header fijo */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
 
-  <style>
+        .checkout-container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 140px auto 40px auto;
+            /* dejar espacio por header */
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
 
-    /* Carrito flotante */
-.cart-panel {
-    position: fixed;
-    top: 0;
-    right: -400px;
-    width: 300px;
-    height: 100%;
-    background: #fff;
-    padding: 20px;
-    box-shadow: -4px 0 10px rgba(0,0,0,0.2);
-    transition: 0.3s;
-    z-index: 10000;
-    overflow-y: auto;
-}
-.cart-panel.open { right: 0; }
+        h1,
+        h3 {
+            text-align: center;
+            color: #0d6efd;
+        }
 
-#open-cart {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    cursor: pointer;
-    z-index: 10001;
-    background: white;
-    padding: 8px 12px;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.3);
-}
-#open-cart:hover { opacity:0.8; }
+        .btn-custom {
+            background-color: #0d6efd;
+            color: white;
+            font-weight: 600;
+            width: 100%;
+        }
 
-.remove-item {
-    cursor: pointer;
-    color: black;
-    font-weight: bold;
-    margin-left: 10px;
-}
-.remove-item:hover { color: red; }
-    body {
-      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-      min-height: 100vh;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-    }
+        .btn-custom:hover {
+            background-color: #084298;
+        }
 
-    /* Header fijo */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-    }
+        .cart-box {
+            background-color: #f9fafb;
+            border-radius: 10px;
+            padding: 25px;
+            height: 100%;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+        }
 
-    .checkout-container {
-      max-width: 1100px;
-      width: 100%;
-      margin: 140px auto 40px auto; /* dejar espacio por header */
-      background: #fff;
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            padding: 8px 0;
+        }
 
-    h1, h3 { text-align: center; color: #0d6efd; }
+        .ticket-container {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
 
-    .btn-custom {
-      background-color: #0d6efd; color: white; font-weight: 600; width: 100%;
-    }
-    .btn-custom:hover { background-color: #084298; }
+        .btn-regresar {
+            margin-top: 25px;
+            background-color: #6c757d;
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
 
-    .cart-box {
-      background-color: #f9fafb; border-radius: 10px; padding: 25px; height: 100%; box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
-    }
-    .cart-item { display: flex; justify-content: space-between; border-bottom: 1px solid #ddd; padding: 8px 0; }
+        .btn-regresar:hover {
+            background-color: #5a6268;
+        }
 
-    .ticket-container {
-      background: #fff; border: 1px solid #ccc; padding: 20px; border-radius: 10px; margin-top: 15px;
-    }
+        /* Inputs checkout */
+        .checkout-container input,
+        .checkout-container textarea {
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            color: #495057;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
 
-    .btn-regresar {
-      margin-top: 25px; background-color: #6c757d; color: white; font-weight: 600; border: none; padding: 10px 25px; border-radius: 8px;
-      transition: all 0.3s ease;
-    }
-    .btn-regresar:hover { background-color: #5a6268; }
+        .checkout-container input:focus,
+        .checkout-container textarea:focus {
+            background-color: #fff;
+            border: 1px solid #0d6efd;
+            box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
+            outline: none;
+        }
 
-    /* Inputs checkout */
-    .checkout-container input,
-    .checkout-container textarea {
-      background-color: #fff;
-      border: 1px solid #ced4da;
-      color: #495057;
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
+        #button {
+            display: block;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-    .checkout-container input:focus,
-    .checkout-container textarea:focus {
-      background-color: #fff;
-      border: 1px solid #0d6efd;
-      box-shadow: 0 0 5px rgba(13,110,253,0.5);
-      outline: none;
-    }
+        #button:hover {
+            background-color: #084298 !important;
+            color: #fff !important;
+        }
 
-    #button { display: block; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.3s; }
-    #button:hover { background-color: #084298 !important; color: #fff !important; }
+        /* Sidebar del carrito */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 350px;
+            height: 100%;
+            background: #fff;
+            box-shadow: -3px 0 15px rgba(0, 0, 0, 0.2);
+            transition: right 0.3s ease;
+            z-index: 9999;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
 
-    /* Sidebar del carrito */
-    .cart-sidebar {
-      position: fixed;
-      top: 0;
-      right: -400px;
-      width: 350px;
-      height: 100%;
-      background: #fff;
-      box-shadow: -3px 0 15px rgba(0,0,0,0.2);
-      transition: right 0.3s ease;
-      z-index: 9999;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-    }
-    .cart-sidebar.open { right: 0; }
-    .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-    .cart-items { flex: 1; overflow-y: auto; }
-    .cart-items .cart-item { display: flex; justify-content: space-between; margin-bottom: 10px; }
-    .cart-footer { margin-top: 15px; }
+        .cart-sidebar.open {
+            right: 0;
+        }
 
-    @media (max-width: 768px) {
-      .checkout-container { padding: 20px; margin-top: 160px; }
-      .btn-regresar { width: 100%; margin-top: 20px; }
-    }
-  
-  </style>
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .cart-items .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .cart-footer {
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .checkout-container {
+                padding: 20px;
+                margin-top: 160px;
+            }
+
+            .btn-regresar {
+                width: 100%;
+                margin-top: 20px;
+            }
+        }
+    </style>
 </head>
 
-<body class="main-layout position_head">
-
-  <!-- HEADER -->
-  <header>
-    <div class="header">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
-            <div class="full">
-              <div class="center-desk">
-                <div class="logo">
-                  <a href="index.html"><img src="images/logo.png" alt="#" /></a>
+<body class="main-layout position_head"> <!-- HEADER -->
+    <header>
+        <div class="header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                        <div class="full">
+                            <div class="center-desk">
+                                <div class="logo"> <a href="index.html"><img src="images/logo.png" alt="#" /></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                        <nav class="navigation navbar navbar-expand-md navbar-dark"> <button class="navbar-toggler"
+                                type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"> <span
+                                    class="navbar-toggler-icon"></span> </button>
+                            <div class="collapse navbar-collapse" id="navbarsExample04">
+                                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="glasses.html">Productos</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="contact.html">Contactanos</a>
+                                    </li>
+                                    <li class="nav-item active"><a class="nav-link" href="checkout.html">Mi
+                                            carrito</a></li>
+                                    <li class="nav-item sea_icon"> <a class="nav-link" href="#" id="open-cart"> <i
+                                                class="fa fa-shopping-cart"></i> <span id="cart-count">0</span> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-          <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
-            <nav class="navigation navbar navbar-expand-md navbar-dark">
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarsExample04">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                  <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-                  <li class="nav-item"><a class="nav-link" href="glasses.html">Productos</a></li>
-                  <li class="nav-item"><a class="nav-link" href="contact.html">Contactanos</a></li>
-                  <li class="nav-item active"><a class="nav-link" href="checkout.html">Mi carrito</a></li>
-                  <li class="nav-item sea_icon">
-                    <a class="nav-link" href="#" id="open-cart">
-                      <i class="fa fa-shopping-cart"></i> <span id="cart-count">0</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </nav>
-          </div>
         </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- CHECKOUT -->
-  <div class="checkout-container">
-    <div class="row g-4">
-      <div class="col-md-6">
-        <div class="cart-box">
-          <h3>🧾 Boucher de compra</h3>
-          <div id="order-summary" class="my-3"></div>
-          <div id="ticket-container" class="ticket-container"></div>
+    </header> <!-- CHECKOUT -->
+    <div class="checkout-container">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="cart-box">
+                    <h3>🧾 Boucher de compra</h3>
+                    <div id="order-summary" class="my-3"></div>
+                    <div id="ticket-container" class="ticket-container"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h1>Formulario de compra</h1>
+                <form id="form">
+                    <div class="mb-3"> <label for="name" class="form-label">Nombre</label> <input type="text"
+                            class="form-control" name="name" id="name" required> </div>
+                    <div class="mb-3"> <label for="last" class="form-label">Apellido</label> <input type="text"
+                            class="form-control" name="last" id="last" required> </div>
+                    <div class="mb-3"> <label for="phone" class="form-label">Teléfono</label> <input type="text"
+                            class="form-control" name="phone" id="phone" required> </div>
+                    <div class="mb-3"> <label for="email" class="form-label">Correo electrónico</label> <input
+                            type="email" class="form-control" name="email" id="email" required> </div>
+                    <div class="mb-3"> <label for="message" class="form-label">Mensaje</label> <textarea
+                            class="form-control" name="message" id="message" rows="4"
+                            placeholder="Escribe tu mensaje..." required></textarea> </div> <input type="hidden"
+                        name="cartDetails" id="cartDetails"> <input type="submit" id="button" class="btn btn-custom"
+                        value="Enviar mensaje">
+                </form>
+            </div>
         </div>
-      </div>
-      <div class="col-md-6">
-        <h1>Formulario de compra</h1>
-        <form id="form">
-          <div class="mb-3">
-            <label for="name" class="form-label">Nombre</label>
-            <input type="text" class="form-control" name="name" id="name" required>
-          </div>
-          <div class="mb-3">
-            <label for="last" class="form-label">Apellido</label>
-            <input type="text" class="form-control" name="last" id="last" required>
-          </div>
-          <div class="mb-3">
-            <label for="phone" class="form-label">Teléfono</label>
-            <input type="text" class="form-control" name="phone" id="phone" required>
-          </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control" name="email" id="email" required>
-          </div>
-          <div class="mb-3">
-            <label for="message" class="form-label">Mensaje</label>
-            <textarea class="form-control" name="message" id="message" rows="4" placeholder="Escribe tu mensaje..." required></textarea>
-          </div>
-
-          <input type="hidden" name="cartDetails" id="cartDetails">
-          <input type="submit" id="button" class="btn btn-custom" value="Enviar mensaje">
-        </form>
-      </div>
-    </div>
-
-    <div class="text-center">
-      <button class="btn-regresar" onclick="volverInicio()">⬅ Regresar al inicio</button>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="mt-5">
-    <div class="footer text-center">
-      <p>© 2025 Todos los derechos reservados. Diseñado por Erick Elizondo</p>
-    </div>
-  </footer>
-
-  <!-- SIDEBAR DEL CARRITO -->
- <div id="cart-panel" class="cart-panel">
-    <h3>Carrito de Compras</h3>
-    <ul id="cart-items"></ul>
-    <p><strong>Total:</strong> $<span id="cart-total">0</span></p>
-    <button id="checkout-btn" class="btn btn-success">Finalizar Pedido</button>
-    <button id="close-btn" class="btn btn-secondary">Cerrar</button>
-</div>
-
-  <!-- SCRIPTS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-  <script>
-  document.addEventListener('DOMContentLoaded', () => {
-
-    // Sidebar del carrito
-    const openCartBtn = document.getElementById('open-cart');
-    const cartSidebar = document.getElementById('cart-sidebar');
-    const closeCartBtn = document.getElementById('close-cart-sidebar');
-    const cartItemsContainer = document.getElementById('cart-items-sidebar');
-    const cartTotalSidebar = document.getElementById('cart-total-sidebar');
-
-    function updateCartSidebar() {
-      const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
-      cartItemsContainer.innerHTML = '';
-      let total = 0;
-      cart.forEach((item, idx) => {
-        const div = document.createElement('div');
-        div.classList.add('cart-item');
-        div.innerHTML = `
-          <span>${item.name} - $${item.price}</span>
-          <button data-index="${idx}" class="remove-item btn btn-sm btn-danger">X</button>
-        `;
-        cartItemsContainer.appendChild(div);
-        total += item.price || 0;
-      });
-      cartTotalSidebar.textContent = total;
-
-      const removeBtns = cartItemsContainer.querySelectorAll('.remove-item');
-      removeBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const idx = e.target.dataset.index;
-          const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
-          cart.splice(idx, 1);
-          localStorage.setItem('cartItems', JSON.stringify(cart));
-          updateCartSidebar();
-          document.getElementById('cart-count').textContent = cart.length;
-        });
-      });
-    }
-
-    if(openCartBtn){
-      openCartBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        cartSidebar.classList.add('open');
-        updateCartSidebar();
-      });
-    }
-
-    if(closeCartBtn){
-      closeCartBtn.addEventListener('click', () => {
-        cartSidebar.classList.remove('open');
-      });
-    }
-
-    const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
-    document.getElementById('cart-count').textContent = cart.length;
-
-    // Formulario y emailJS
-    emailjs.init('V-hMWsxBw8_MPntU5');
-    const form = document.getElementById('form');
-    const btn = document.getElementById('button');
-
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
-      if(cart.length === 0){ alert('⚠️ No puedes enviar el formulario sin productos.'); return; }
-      btn.value = 'Enviando...';
-      const detalleCarrito = cart.map((p,i)=>`${i+1}. ${p.name} - $${p.price}`).join('\n');
-      const total = cart.reduce((sum,p)=>sum+(p.price||0),0);
-      let ultimoPedido = parseInt(localStorage.getItem('ultimoPedido')) || 0;
-      const numeroPedido = ultimoPedido+1;
-      localStorage.setItem('ultimoPedido', numeroPedido);
-
-      const formData = {
-        name: form.name.value,
-        last: form.last.value,
-        phone: form.phone.value,
-        email: form.email.value,
-        message: form.message.value,
-        carrito_detalle: detalleCarrito,
-        total: total,
-        numero_pedido: numeroPedido
-      };
-
-      emailjs.send('default_service','template_hqqxl2k',formData)
-      .then(()=>{
-        btn.value = 'Enviar mensaje';
-        alert('✅ Correo enviado correctamente');
-        form.reset();
-        localStorage.removeItem('cartItems');
-        document.getElementById('cart-count').textContent = 0;
-        mostrarBoucherEnPantalla([],0,numeroPedido);
-      })
-      .catch(err=>{
-        btn.value='Enviar mensaje';
-        alert('❌ Error al enviar: '+JSON.stringify(err));
-      });
-    });
-
-    function mostrarBoucherEnPantalla(cart,total,numeroPedido){
-      const html = `
-        <h4 class="text-center mb-3">Sungla Store</h4>
-        <p><strong>Pedido #:</strong> ${numeroPedido}</p>
-        <ul style="list-style:none;padding:0;">
-          ${cart.map(it=>`<li>${it.name} - $${it.price}</li>`).join('')}
-        </ul>
-        <p><strong>Total:</strong> $${total}</p>
-        <p class="mt-3 text-center" style="font-size:0.85rem;">Gracias por su compra. Pago al recibir.</p>
-      `;
-      document.getElementById('ticket-container').innerHTML = html;
-    }
-
-    function volverInicio(){
-      localStorage.removeItem('cartItems');
-      window.location.href='index.html';
-    }
-
-    // Mostrar resumen
-    const orderSummary = document.getElementById('order-summary');
-    const orderCart = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const orderTotal = orderCart.reduce((sum,i)=>sum+i.price,0);
-    let ultimoPedido = parseInt(localStorage.getItem('ultimoPedido')) || 0;
-    const numeroPedido = ultimoPedido+1;
-    const summaryHTML = `
-      <div style="padding:15px;background:#eef5ff;border-radius:8px;">
-        <h5>Resumen de su compra:</h5>
-        <ul style="list-style:none;padding:0;">
-          ${orderCart.map(it=>`<li class="cart-item"><span>${it.name}</span><span>$${it.price}</span></li>`).join('')}
-        </ul>
-        <p class="text-end mt-2"><strong>Total:</strong> $${orderTotal}</p>
-        <div class="text-center mt-3">
-          <button id="btnTicket" class="btn btn-success w-100">Generar boucher</button>
+        <div class="text-center"> <button class="btn-regresar" onclick="volverInicio()">⬅ Regresar al
+                inicio</button> </div>
+    </div> <!-- FOOTER -->
+    <footer class="mt-5">
+        <div class="footer text-center">
+            <p>© 2025 Todos los derechos reservados. Diseñado por Erick Elizondo</p>
         </div>
-      </div>
-    `;
-    orderSummary.innerHTML = summaryHTML;
-    mostrarBoucherEnPantalla(orderCart,orderTotal,numeroPedido);
-    document.getElementById('btnTicket').addEventListener('click',()=>{
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      let y = 10;
-      doc.setFontSize(16);
-      doc.text(`Sungla Store`,10,y); y+=10;
-      doc.setFontSize(12);
-      doc.text(`Pedido #: ${numeroPedido}`,10,y); y+=10;
-      orderCart.forEach((item,i)=>{ doc.text(`${i+1}. ${item.name} - $${item.price}`,10,y); y+=10; });
-      doc.text(`Total: $${orderTotal}`,10,y); y+=10;
-      doc.text(`Gracias por su compra. Pago al recibir.`,10,y);
-      doc.save(`Boucher_Pedido_${numeroPedido}.pdf`);
-    });
-
-  });
-  </script>
-
+    </footer> <!-- SIDEBAR DEL CARRITO -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h5>🛒 Mi carrito</h5> <button id="close-cart-sidebar">&times;</button>
+        </div>
+        <div id="cart-items-sidebar" class="cart-items"></div>
+        <div class="cart-footer">
+            <p>Total: $<span id="cart-total-sidebar">0</span></p> <a href="checkout.html"
+                class="btn btn-primary w-100">Ir al checkout</a>
+        </div>
+    </div> <!-- SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script> document.addEventListener('DOMContentLoaded', () => { // Sidebar del carrito const openCartBtn = document.getElementById('open-cart'); const cartSidebar = document.getElementById('cart-sidebar'); const closeCartBtn = document.getElementById('close-cart-sidebar'); const cartItemsContainer = document.getElementById('cart-items-sidebar'); const cartTotalSidebar = document.getElementById('cart-total-sidebar'); function updateCartSidebar() { const cart = JSON.parse(localStorage.getItem('cartItems')) || []; cartItemsContainer.innerHTML = ''; let total = 0; cart.forEach((item, idx) => { const div = document.createElement('div'); div.classList.add('cart-item'); div.innerHTML = <span>${item.name} - $${item.price}</span> <button data-index="${idx}" class="remove-item btn btn-sm btn-danger">X</button> ; cartItemsContainer.appendChild(div); total += item.price || 0; }); cartTotalSidebar.textContent = total; const removeBtns = cartItemsContainer.querySelectorAll('.remove-item'); removeBtns.forEach(btn => { btn.addEventListener('click', (e) => { const idx = e.target.dataset.index; const cart = JSON.parse(localStorage.getItem('cartItems')) || []; cart.splice(idx, 1); localStorage.setItem('cartItems', JSON.stringify(cart)); updateCartSidebar(); document.getElementById('cart-count').textContent = cart.length; }); }); } if(openCartBtn){ openCartBtn.addEventListener('click', (e) => { e.preventDefault(); cartSidebar.classList.add('open'); updateCartSidebar(); }); } if(closeCartBtn){ closeCartBtn.addEventListener('click', () => { cartSidebar.classList.remove('open'); }); } const cart = JSON.parse(localStorage.getItem('cartItems')) || []; document.getElementById('cart-count').textContent = cart.length; // Formulario y emailJS emailjs.init('V-hMWsxBw8_MPntU5'); const form = document.getElementById('form'); const btn = document.getElementById('button'); form.addEventListener('submit', function(e){ e.preventDefault(); let cart = JSON.parse(localStorage.getItem('cartItems')) || []; if(cart.length === 0){ alert('⚠️ No puedes enviar el formulario sin productos.'); return; } btn.value = 'Enviando...'; const detalleCarrito = cart.map((p,i)=>${i+1}. ${p.name} - $${p.price}).join('\n'); const total = cart.reduce((sum,p)=>sum+(p.price||0),0); let ultimoPedido = parseInt(localStorage.getItem('ultimoPedido')) || 0; const numeroPedido = ultimoPedido+1; localStorage.setItem('ultimoPedido', numeroPedido); const formData = { name: form.name.value, last: form.last.value, phone: form.phone.value, email: form.email.value, message: form.message.value, carrito_detalle: detalleCarrito, total: total, numero_pedido: numeroPedido }; emailjs.send('default_service','template_hqqxl2k',formData) .then(()=>{ btn.value = 'Enviar mensaje'; alert('✅ Correo enviado correctamente'); form.reset(); localStorage.removeItem('cartItems'); document.getElementById('cart-count').textContent = 0; mostrarBoucherEnPantalla([],0,numeroPedido); }) .catch(err=>{ btn.value='Enviar mensaje'; alert('❌ Error al enviar: '+JSON.stringify(err)); }); }); function mostrarBoucherEnPantalla(cart,total,numeroPedido){ const html = <h4 class="text-center mb-3">Sungla Store</h4> <p><strong>Pedido #:</strong> ${numeroPedido}</p> <ul style="list-style:none;padding:0;"> ${cart.map(it=><li>${it.name} - $${it.price}</li>).join('')} </ul> <p><strong>Total:</strong> $${total}</p> <p class="mt-3 text-center" style="font-size:0.85rem;">Gracias por su compra. Pago al recibir.</p> ; document.getElementById('ticket-container').innerHTML = html; } function volverInicio(){ localStorage.removeItem('cartItems'); window.location.href='index.html'; } // Mostrar resumen const orderSummary = document.getElementById('order-summary'); const orderCart = JSON.parse(localStorage.getItem('cartItems')) || []; const orderTotal = orderCart.reduce((sum,i)=>sum+i.price,0); let ultimoPedido = parseInt(localStorage.getItem('ultimoPedido')) || 0; const numeroPedido = ultimoPedido+1; const summaryHTML = <div style="padding:15px;background:#eef5ff;border-radius:8px;"> <h5>Resumen de su compra:</h5> <ul style="list-style:none;padding:0;"> ${orderCart.map(it=><li class="cart-item"><span>${it.name}</span><span>$${it.price}</span></li>).join('')} </ul> <p class="text-end mt-2"><strong>Total:</strong> $${orderTotal}</p> <div class="text-center mt-3"> <button id="btnTicket" class="btn btn-success w-100">Generar boucher</button> </div> </div> ; orderSummary.innerHTML = summaryHTML; mostrarBoucherEnPantalla(orderCart,orderTotal,numeroPedido); document.getElementById('btnTicket').addEventListener('click',()=>{ const { jsPDF } = window.jspdf; const doc = new jsPDF(); let y = 10; doc.setFontSize(16); doc.text(Sungla Store,10,y); y+=10; doc.setFontSize(12); doc.text(Pedido #: ${numeroPedido},10,y); y+=10; orderCart.forEach((item,i)=>{ doc.text(${i+1}. ${item.name} - $${item.price},10,y); y+=10; }); doc.text(Total: $${orderTotal},10,y); y+=10; doc.text(Gracias por su compra. Pago al recibir.,10,y); doc.save(Boucher_Pedido_${numeroPedido}.pdf); }); }); </script>
 </body>
+
 </html>
