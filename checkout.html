@@ -417,7 +417,7 @@ if(closeCartBtn){
 <div id="cart-sidebar" class="cart-sidebar">
   <div class="cart-header">
     <h5>🛒 Mi carrito</h5>
-    <button id="close-cart-sidebar">&times;</button>
+    <button id="close-cart-sidebar">×</button>
   </div>
   <div id="cart-items-sidebar" class="cart-items"></div>
   <div class="cart-footer">
@@ -425,5 +425,62 @@ if(closeCartBtn){
     <a href="checkout.html" class="btn btn-primary w-100">Ir al checkout</a>
   </div>
 </div>
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const openCartBtn = document.getElementById('open-cart');
+  const cartSidebar = document.getElementById('cart-sidebar');
+  const closeCartBtn = document.getElementById('close-cart-sidebar');
+  const cartItemsContainer = document.getElementById('cart-items-sidebar');
+  const cartTotalSidebar = document.getElementById('cart-total-sidebar');
+  const cartCountElem = document.getElementById('cart-count');
+
+  function updateCartSidebar() {
+    const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+    cartItemsContainer.innerHTML = '';
+    let total = 0;
+
+    cart.forEach((item, idx) => {
+      const div = document.createElement('div');
+      div.classList.add('cart-item');
+      div.innerHTML = `
+        <span>${item.name} - $${item.price}</span>
+        <button data-index="${idx}" class="remove-item btn btn-sm btn-danger">X</button>
+      `;
+      cartItemsContainer.appendChild(div);
+      total += item.price || 0;
+    });
+
+    cartTotalSidebar.textContent = total;
+    cartCountElem.textContent = cart.length;
+
+    const removeBtns = cartItemsContainer.querySelectorAll('.remove-item');
+    removeBtns.forEach(btn => {
+      btn.addEventListener('click', e => {
+        const idx = e.target.dataset.index;
+        const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+        cart.splice(idx, 1);
+        localStorage.setItem('cartItems', JSON.stringify(cart));
+        updateCartSidebar();
+      });
+    });
+  }
+
+  if (openCartBtn) {
+    openCartBtn.addEventListener('click', e => {
+      e.preventDefault();
+      cartSidebar.classList.add('open');
+      updateCartSidebar();
+    });
+  }
+
+  if (closeCartBtn) {
+    closeCartBtn.addEventListener('click', () => {
+      cartSidebar.classList.remove('open');
+    });
+  }
+
+  updateCartSidebar();
+});
+</script>
 </body>
 </html>
