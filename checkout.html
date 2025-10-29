@@ -241,7 +241,9 @@
         div.classList.add('cart-item');
         div.innerHTML = `
           <span>${item.name} - $${item.price}</span>
-          <button data-index="${idx}" class="remove-item btn btn-sm btn-danger">X</button>
+         div.innerHTML = `
+  <span>${item.name} - $${item.price}</span>
+  <button data-index="${idx}" class="remove-item">×</button>
         `;
         cartItemsContainer.appendChild(div);
         total += item.price || 0;
