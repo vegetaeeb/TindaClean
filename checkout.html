@@ -265,13 +265,18 @@ body {
 
       
 
-// 🔹 Generar un código corto tipo "CP-8888529"
-function generarCodigoPedido() {
-  const randomNum = Math.floor(1000000 + Math.random() * 9000000); // número aleatorio de 7 dígitos
-  return `CP-${randomNum}`;
+// 🔹 Generar un código tipo CP-8888529 y mantenerlo durante la sesión
+let numeroPedido = localStorage.getItem('numeroPedido');
+if (!numeroPedido) {
+  const randomNum = Math.floor(1000000 + Math.random() * 9000000); // 7 dígitos
+  numeroPedido = `CP-${randomNum}`;
+  localStorage.setItem('numeroPedido', numeroPedido);
 }
 
-const numeroPedido = generarCodigoPedido();
+// Mostrar boucher al cargar
+mostrarBoucherEnPantalla(cart, total, numeroPedido);
+      
+// Enviar formulario
 
       const formData = {
         name: form.name.value,
@@ -294,6 +299,10 @@ const numeroPedido = generarCodigoPedido();
         alert('✅ Correo enviado correctamente con el detalle del carrito');
         form.reset();
         localStorage.removeItem('cartItems');
+        
+   // 🔹 Después de enviar, eliminamos el pedido para el próximo
+    localStorage.removeItem('numeroPedido');
+        
         const cartCount = document.getElementById('cart-count');
         if (cartCount) cartCount.textContent = 0;
         mostrarBoucherEnPantalla([], 0, numeroPedido);
